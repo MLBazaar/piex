@@ -26,12 +26,11 @@ function mongo_dump() {
 
 TESTS=$(echo $* | sed 's/^.*$/["&"]/g' | sed 's/ \+/","/g')
 QUERY='{"test_id":{"$in":'$TESTS'}}'
-# QUERY='{"test_id":{"$in":["20181022221052624206"]}}'
 
-# mongo_dump -c tests -o $NAME -q$QUERY
-# mongo_dump -c test_results -o $NAME -q$QUERY
-# mongo_dump -c solutions -o $NAME -q$QUERY
-# mongo_dump -c pipelines -o $NAME
+mongo_dump -c tests -o $NAME -q$QUERY
+mongo_dump -c test_results -o $NAME -q$QUERY
+mongo_dump -c solutions -o $NAME -q$QUERY
+mongo_dump -c pipelines -o $NAME
 mongo_dump -c problems -o $NAME
 mongo_dump -c datasets -o $NAME
 
