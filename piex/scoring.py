@@ -4,7 +4,7 @@ import logging
 
 import numpy as np
 from mlblocks import MLPipeline
-from sklearn.model_selection import KFold
+from sklearn.model_selection import KFold, StratifiedKFold
 
 from mit_d3m import load_dataset
 
@@ -26,14 +26,21 @@ def get_split(X, y, indexes):
     return X, y
 
 
-def pipeline_score(pipeline_dict, X, y, scorer, context=None, n_splits=5, cv=None):
+def pipeline_score(pipeline_dict, X, y, scorer, context=None,
+                   n_splits=5, cv=None, random_state=0):
 
     context = context or dict()
 
     LOGGER.debug('CV Scoring pipeline %s')
 
     cv_scores = list()
-    cv = cv or KFold(n_splits=n_splits, shuffle=True)
+
+    if not cv:
+        metadata = pipeline_dict.get('metadata', pipeline_dict.get('loader', dict()))
+        if metadata.get('task_type') == 'classification':
+            cv = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=random_state)
+        else:
+            cv = KFold(n_splits=n_splits, shuffle=True, random_state=random_state)
 
     for fold, (train_index, test_index) in enumerate(cv.split(X, y)):
         LOGGER.debug('Scoring fold: %s', fold)
@@ -50,10 +57,10 @@ def pipeline_score(pipeline_dict, X, y, scorer, context=None, n_splits=5, cv=Non
 
         LOGGER.debug('Fold %s score: %s', fold, score)
 
-    return np.mean(cv_scores)
+    return np.mean(cv_scores), np.std(cv_scores)
 
 
-def pipeline_dataset_score(pipeline_dict, dataset_name, n_splits=5, cv=None):
+def pipeline_dataset_score(pipeline_dict, dataset_name, n_splits=5, cv=None, random_state=0):
     dataset = load_dataset(dataset_name)
 
     X = dataset.X
@@ -61,8 +68,14 @@ def pipeline_dataset_score(pipeline_dict, dataset_name, n_splits=5, cv=None):
     scorer = dataset.scorer
     context = dataset.context
 
-    return pipeline_score(pipeline_dict, X, y, scorer, context, n_splits, cv)
+    return pipeline_score(pipeline_dict, X, y, scorer, context, n_splits, cv, random_state)
 
 
-def score_pipeline(pipeline_dict, n_splits=5, cv=None):
-    return pipeline_dataset_score(pipeline_dict, pipeline_dict['dataset'], n_splits, cv)
+def score_pipeline(pipeline_dict, n_splits=5, cv=None, random_state=0):
+    return pipeline_dataset_score(
+        pipeline_dict,
+        pipeline_dict['dataset'],
+        n_splits,
+        cv,
+        random_state
+    )
