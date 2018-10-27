@@ -62,7 +62,18 @@ class PipelineExplorer:
         ddf = self.load_csv('datasets')
         tdf = self.load_csv('tests')
         tdf = tdf.merge(ddf, how='left', on='dataset')
-        return tdf.loc[(tdf[list(filters)] == pd.Series(filters)).all(axis=1)]
+        return tdf.loc[(tdf[list(filters)] == pd.Series(filters)).all(axis=1)].copy()
+
+    def get_test_results(self, **filters):
+        rdf = self.load_csv('test_results')
+        rdf = rdf.loc[(rdf[list(filters)] == pd.Series(filters)).all(axis=1)]
+        tdf = self.get_tests(**filters)
+        return rdf.merge(tdf, how='left', on=['dataset', 'test_id'])
+
+    def get_pipelines(self, **filters):
+        df = self.load_csv('solutions')
+        df['pipeline'] = df['name']
+        return df.loc[(df[list(filters)] == pd.Series(filters)).all(axis=1)].copy()
 
     def get_datasets(self, **filters):
         tests = self.get_tests(**filters)

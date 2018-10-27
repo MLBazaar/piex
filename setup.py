@@ -21,6 +21,10 @@ install_requires = [
     'scipy>=1.1.0',
 ]
 
+demo_requires = [
+    'jupyter>=1.0.0'
+]
+
 setup_requires = [
     'pytest-runner>=2.11.1',
 ]
@@ -72,7 +76,8 @@ setup(
     description="Pipeline Explorer",
     extras_require={
         'test': tests_require,
-        'dev': development_requires + tests_require,
+        'demo': demo_requires,
+        'dev': demo_requires + development_requires + tests_require,
     },
     include_package_data=True,
     install_requires=install_requires,
