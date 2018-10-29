@@ -67,8 +67,9 @@ class PipelineExplorer:
     def get_test_results(self, **filters):
         rdf = self.load_csv('test_results')
         rdf = rdf.loc[(rdf[list(filters)] == pd.Series(filters)).all(axis=1)]
-        tdf = self.get_tests(**filters)
-        return rdf.merge(tdf, how='left', on=['dataset', 'test_id'])
+        # tdf = self.get_tests(**filters)
+        tdf = self.load_csv('tests')
+        return rdf.merge(tdf, how='left', on=['dataset', 'test_id'], suffixes=('', '_results'))
 
     def get_pipelines(self, **filters):
         df = self.load_csv('solutions')
