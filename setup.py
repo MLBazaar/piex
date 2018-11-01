@@ -14,7 +14,7 @@ install_requires = [
     'numpy>=1.15.2',
     'mit-d3m>=0.1.1',
     'mlblocks==0.2.3',
-    'mlprimitives==0.1.2',
+    'mlprimitives==0.1.3',
     'pandas>=0.23.4',
     'pymongo>=3.7.2',
     'scikit-learn>=0.20.0',
