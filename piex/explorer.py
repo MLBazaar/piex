@@ -66,8 +66,10 @@ class PipelineExplorer:
         return df.loc[(df[list(filters)] == pd.Series(filters)).all(axis=1)].copy()
 
     def get_datasets(self, **filters):
-        tests = self.get_tests(**filters)
-        return tests[DATASETS_COLUMNS].sort_values(DATASETS_COLUMNS).drop_duplicates()
+        tests = self.get_tests(**filters).reindex(columns=DATASETS_COLUMNS)
+        subset= ['task_type']
+        tests = tests.sort_values(DATASETS_COLUMNS).dropna(subset=subset)
+        return tests.drop_duplicates().reset_index(drop=True)
 
     def get_dataset_id(self, dataset):
         datasets = self.load_table('datasets')
@@ -106,11 +108,14 @@ class MongoPipelineExplorer(PipelineExplorer):
         cursor = self.db[collection].find(query or dict(), project)
         return pd.DataFrame(list(cursor))
 
+    def get_datasets(self, **filters):
+        return self.get_collection('datasets', filters)
+
     def get_tests(self, **filters):
         ddf = self.get_collection('datasets', filters, {'_id': 0})
         datasets = list(ddf.dataset.unique())
         tdf = self.get_collection('tests', {'dataset': {'$in': datasets}}, {'_id': 0})
-        tdf = tdf.merge(ddf, how='left', on='dataset')
+        # tdf = tdf.merge(ddf, how='left', on='dataset')
         return tdf.loc[(tdf[list(filters)] == pd.Series(filters)).all(axis=1)].copy()
 
     def get_test_results(self, **filters):
@@ -136,10 +141,6 @@ class MongoPipelineExplorer(PipelineExplorer):
         df['data_modality'] = loader.apply(lambda l: l.get('data_modality'))
         df['task_type'] = loader.apply(lambda l: l.get('task_type'))
         return df
-
-    def get_datasets(self, **filters):
-        tests = self.get_tests(**filters)
-        return tests[DATASETS_COLUMNS].sort_values(DATASETS_COLUMNS).drop_duplicates()
 
     def get_dataset_id(self, dataset):
         document = self.db.datasets.find_one({'dataset': dataset}, ['dataset_id'])
