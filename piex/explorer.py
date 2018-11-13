@@ -208,7 +208,7 @@ class MongoPipelineExplorer(PipelineExplorer):
         return self.db.solutions.find_one({'_id': pipeline_id})
 
     def load_template(self, template_name):
-        return self.db.templates.find_one({'metadata.name': template_name})
+        return self.db.pipelines.find_one({'metadata.name': template_name})
 
 
 class S3PipelineExplorer(PipelineExplorer):
