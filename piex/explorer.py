@@ -9,6 +9,9 @@ import pickle
 
 import boto3
 import pandas as pd
+from mlblocks import MLPipeline
+
+from piex import scoring
 
 LOGGER = logging.getLogger(__name__)
 
@@ -65,11 +68,19 @@ class PipelineExplorer:
         df['pipeline'] = df['name']
         return df.loc[(df[list(filters)] == pd.Series(filters)).all(axis=1)].copy()
 
-    def get_datasets(self, **filters):
-        tests = self.get_tests(**filters).reindex(columns=DATASETS_COLUMNS)
-        subset= ['task_type']
-        tests = tests.sort_values(DATASETS_COLUMNS).dropna(subset=subset)
-        return tests.drop_duplicates().reset_index(drop=True)
+    def get_templates(self, **filters):
+        df = self.load_table('solutions')
+        df['pipeline'] = df['name']
+        return df.loc[(df[list(filters)] == pd.Series(filters)).all(axis=1)].copy()
+
+    def get_datasets(self, with_tests=True, **filters):
+        if with_tests:
+            tests = self.get_tests(**filters).reindex(columns=DATASETS_COLUMNS)
+            subset= ['task_type']
+            tests = tests.sort_values(DATASETS_COLUMNS).dropna(subset=subset)
+            return tests.drop_duplicates().reset_index(drop=True)
+        else:
+            return self.load_table('datasets')
 
     def get_dataset_id(self, dataset):
         datasets = self.load_table('datasets')
@@ -87,15 +98,45 @@ class PipelineExplorer:
         if not dsdf.empty:
             return dsdf.rename({'_id': 'id'}).sort_values('rank').iloc[0]
 
+    def get_best_template(self, dataset):
+        return self.get_best_pipeline(dataset)['name']
+
     def load_pipeline(self, pipeline_id):
         raise NotImplementedError
 
-    def load_template(self, template_id):
+    def load_template(self, template_name):
         raise NotImplementedError
 
     def load_best_pipeline(self, dataset):
         pipeline = self.get_best_pipeline(dataset)
         return self.load_pipeline(pipeline._id)
+
+    def get_default_hyperparameters(self, template_name):
+        template = self.load_template(template_name)
+        mlpipeline = MLPipeline.from_dict(template)
+        return mlpipeline.get_hyperparameters()
+
+    def get_tunable_hyperparameters(self, template_name):
+        template = self.load_template(template_name)
+        mlpipeline = MLPipeline.from_dict(template)
+        return mlpipeline.get_tunable_hyperparameters()
+
+    def test_pipeline(self, template_name, dataset, hyperparameters=None,
+                      n_splits=5, cv=None, random_state=0):
+
+        template = self.load_template(template_name)
+        if hyperparameters is None:
+            hyperparameters = self.get_default_hyperparameters(template_name)
+
+        template['hyperparameters'] = hyperparameters
+
+        return scoring.pipeline_dataset_score(
+            template,
+            dataset,
+            n_splits,
+            cv,
+            random_state
+        )
 
 
 class MongoPipelineExplorer(PipelineExplorer):
@@ -115,7 +156,6 @@ class MongoPipelineExplorer(PipelineExplorer):
         ddf = self.get_collection('datasets', filters, {'_id': 0})
         datasets = list(ddf.dataset.unique())
         tdf = self.get_collection('tests', {'dataset': {'$in': datasets}}, {'_id': 0})
-        # tdf = tdf.merge(ddf, how='left', on='dataset')
         return tdf.loc[(tdf[list(filters)] == pd.Series(filters)).all(axis=1)].copy()
 
     def get_test_results(self, **filters):
@@ -167,8 +207,8 @@ class MongoPipelineExplorer(PipelineExplorer):
     def load_pipeline(self, pipeline_id):
         return self.db.solutions.find_one({'_id': pipeline_id})
 
-    def load_template(self, template_id):
-        return self.db.templates.find_one({'_id': template_id})
+    def load_template(self, template_name):
+        return self.db.templates.find_one({'metadata.name': template_name})
 
 
 class S3PipelineExplorer(PipelineExplorer):
@@ -189,8 +229,8 @@ class S3PipelineExplorer(PipelineExplorer):
 
         return pd.read_csv(gzip_file)
 
-    def get_json(self, folder, pipeline_id):
-        key = os.path.join(folder, pipeline_id + '.json.gz')
+    def get_json(self, folder, object_id):
+        key = os.path.join(folder, object_id + '.json.gz')
         s3 = boto3.client('s3')
         obj = s3.get_object(Bucket=self.bucket, Key=key)
 
@@ -201,5 +241,5 @@ class S3PipelineExplorer(PipelineExplorer):
     def load_pipeline(self, pipeline_id):
         return self.get_json('pipelines', pipeline._id)
 
-    def load_template(self, template_id):
-        return self.get_json('templates', template_id)
+    def load_template(self, template_name):
+        return self.get_json('templates', template_name.replace('/', '.'))
