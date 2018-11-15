@@ -64,7 +64,7 @@ class PipelineExplorer:
         return rdf.merge(tdf, how='left', on=['dataset', 'test_id'], suffixes=('', '_results'))
 
     def get_pipelines(self, **filters):
-        df = self.load_table('solutions')
+        df = self.load_table('pipelines')
         df['pipeline'] = df['name']
         return df.loc[(df[list(filters)] == pd.Series(filters)).all(axis=1)].copy()
 
@@ -239,7 +239,7 @@ class S3PipelineExplorer(PipelineExplorer):
         return json.load(gzip_file)
 
     def load_pipeline(self, pipeline_id):
-        return self.get_json('pipelines', pipeline._id)
+        return self.get_json('pipelines', pipeline_id)
 
     def load_template(self, template_name):
         return self.get_json('templates', template_name.replace('/', '.'))
