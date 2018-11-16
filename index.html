@@ -1,0 +1,752 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Pipeline Explorer &mdash; D3M Pipeline Explorer 0.1.0-dev documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Pipeline Explorer" href="readme.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> D3M Pipeline Explorer
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="readme.html">Pipeline Explorer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="readme.html#getting-started">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#installation">Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="readme.html#usage">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#the-s3pipelineexplorer">The S3PipelineExplorer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="readme.html#the-datasets">The Datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="readme.html#the-experiments">The Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="readme.html#the-experiment-results">The Experiment Results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="readme.html#the-best-pipeline">The Best Pipeline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="readme.html#the-best-template">The Best Template</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="readme.html#scoring-templates-and-pipelines">Scoring Templates and Pipelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#scoring-a-pipeline">Scoring a Pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#scoring-a-template">Scoring a Template</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#stable-release">Stable release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#from-source">From source</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced Usage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/piex.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/piex.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/piex.explorer.html">piex.explorer module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/piex.scoring.html">piex.scoring module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Development Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#types-of-contributions">Types of Contributions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#report-bugs">Report Bugs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#fix-bugs">Fix Bugs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#implement-features">Implement Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#write-documentation">Write Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#submit-feedback">Submit Feedback</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#get-started">Get Started!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#pull-request-guidelines">Pull Request Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#unit-testing-guidelines">Unit Testing Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#tips">Tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#release-workflow">Release Workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="authors.html#development-lead">Development Lead</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authors.html#contributors">Contributors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">History</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="history.html#id1">0.1.0</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">D3M Pipeline Explorer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Pipeline Explorer</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/HDI-Project/piex/blob/master/docs/index.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <a class="reference external image-reference" href="https://pypi.python.org/pypi/piex"><img alt="PyPI Shield" src="https://img.shields.io/pypi/v/piex.svg" /></a>
+<a class="reference external image-reference" href="https://travis-ci.org/HDI-Project/piex"><img alt="Travis CI Shield" src="https://travis-ci.org/HDI-Project/piex.svg?branch=master" /></a>
+<div class="section" id="pipeline-explorer">
+<h1>Pipeline Explorer<a class="headerlink" href="#pipeline-explorer" title="Permalink to this headline">¶</a></h1>
+<p>Classes and functions to explore and reproce the performance obtained by
+thousands of MLBlocks pipelines and templates accross hundreds of datasets.</p>
+<ul class="simple">
+<li>Free software: MIT license</li>
+<li>Documentation: <a class="reference external" href="https://HDI-Project.github.io/piex">https://HDI-Project.github.io/piex</a></li>
+<li>Homepage: <a class="reference external" href="https://github.com/HDI-Project/piex">https://github.com/HDI-Project/piex</a></li>
+</ul>
+</div>
+<div class="section" id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone git@github.com:HDI-Project/piex.git
+$ <span class="nb">cd</span> piex
+$ pip install -e .
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-s3pipelineexplorer">
+<h2>The S3PipelineExplorer<a class="headerlink" href="#the-s3pipelineexplorer" title="Permalink to this headline">¶</a></h2>
+<p>The <strong>S3PipelineExplorer</strong> class provides methods to download the results from previous
+tests executions from S3, see which pipelines obtained the best scores and load them
+as a dictionary, ready to be used by an MLPipeline.</p>
+<p>To start working with it, it needs to be given the name of the S3 Bucket from which
+the data will be downloaded.</p>
+<p>For this examples, we will be using the <code class="docutils literal notranslate"><span class="pre">ml-pipelines-2018</span></code> bucket, where the results
+of the experiments run for the Machine Learning Bazaar paper can be found.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">piex.explorer</span> <span class="kn">import</span> <span class="n">S3PipelineExplorer</span>
+
+<span class="n">piex</span> <span class="o">=</span> <span class="n">S3PipelineExplorer</span><span class="p">(</span><span class="s1">&#39;ml-pipelines-2018&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="the-datasets">
+<h3>The Datasets<a class="headerlink" href="#the-datasets" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">get_datasets</span></code> method returns a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> with information about the
+available datasets.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">datasets</span> <span class="o">=</span> <span class="n">piex</span><span class="o">.</span><span class="n">get_datasets</span><span class="p">()</span>
+<span class="n">datasets</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<div>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>dataset</th>
+      <th>data_modality</th>
+      <th>task_type</th>
+      <th>task_subtype</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>314</th>
+      <td>124_120_mnist</td>
+      <td>image</td>
+      <td>classification</td>
+      <td>multi_class</td>
+    </tr>
+    <tr>
+      <th>315</th>
+      <td>124_138_cifar100</td>
+      <td>image</td>
+      <td>classification</td>
+      <td>multi_class</td>
+    </tr>
+    <tr>
+      <th>316</th>
+      <td>124_153_svhn_cropped</td>
+      <td>image</td>
+      <td>classification</td>
+      <td>multi_class</td>
+    </tr>
+    <tr>
+      <th>317</th>
+      <td>124_174_cifar10</td>
+      <td>image</td>
+      <td>classification</td>
+      <td>multi_class</td>
+    </tr>
+    <tr>
+      <th>318</th>
+      <td>124_178_coil100</td>
+      <td>image</td>
+      <td>classification</td>
+      <td>multi_class</td>
+    </tr>
+  </tbody>
+</table>
+</div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">datasets</span> <span class="o">=</span> <span class="n">piex</span><span class="o">.</span><span class="n">get_datasets</span><span class="p">(</span><span class="n">data_modality</span><span class="o">=</span><span class="s1">&#39;multi_table&#39;</span><span class="p">,</span> <span class="n">task_type</span><span class="o">=</span><span class="s1">&#39;regression&#39;</span><span class="p">)</span>
+<span class="n">datasets</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<div>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>dataset</th>
+      <th>data_modality</th>
+      <th>task_type</th>
+      <th>task_subtype</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>311</th>
+      <td>uu2_gp_hyperparameter_estimation</td>
+      <td>multi_table</td>
+      <td>regression</td>
+      <td>multivariate</td>
+    </tr>
+    <tr>
+      <th>312</th>
+      <td>uu3_world_development_indicators</td>
+      <td>multi_table</td>
+      <td>regression</td>
+      <td>univariate</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+<div class="section" id="the-experiments">
+<h3>The Experiments<a class="headerlink" href="#the-experiments" title="Permalink to this headline">¶</a></h3>
+<p>The list of that have been executed can be obtained with the method <code class="docutils literal notranslate"><span class="pre">get_tests</span></code>.</p>
+<p>Just like the <code class="docutils literal notranslate"><span class="pre">get_datasets</span></code>, any keyword arguments will be used to filter the results.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+
+<span class="n">tests</span> <span class="o">=</span> <span class="n">piex</span><span class="o">.</span><span class="n">get_tests</span><span class="p">()</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">tests</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;data_modality&#39;</span><span class="p">,</span> <span class="s1">&#39;task_type&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>count</th>
+    </tr>
+    <tr>
+      <th>data_modality</th>
+      <th>task_type</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="4" valign="top">graph</th>
+      <th>community_detection</th>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>graph_matching</th>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>link_prediction</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>vertex_nomination</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">image</th>
+      <th>classification</th>
+      <td>57</td>
+    </tr>
+    <tr>
+      <th>regression</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">multi_table</th>
+      <th>classification</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>regression</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th rowspan="4" valign="top">single_table</th>
+      <th>classification</th>
+      <td>1405</td>
+    </tr>
+    <tr>
+      <th>collaborative_filtering</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>regression</th>
+      <td>430</td>
+    </tr>
+    <tr>
+      <th>time_series_forecasting</th>
+      <td>175</td>
+    </tr>
+    <tr>
+      <th>text</th>
+      <th>classification</th>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>timeseries</th>
+      <th>classification</th>
+      <td>37</td>
+    </tr>
+  </tbody>
+</table>
+</div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tests</span> <span class="o">=</span> <span class="n">piex</span><span class="o">.</span><span class="n">get_tests</span><span class="p">(</span><span class="n">data_modality</span><span class="o">=</span><span class="s1">&#39;graph&#39;</span><span class="p">,</span> <span class="n">task_type</span><span class="o">=</span><span class="s1">&#39;link_prediction&#39;</span><span class="p">)</span>
+<span class="n">tests</span><span class="p">[[</span><span class="s1">&#39;dataset&#39;</span><span class="p">,</span> <span class="s1">&#39;pipeline&#39;</span><span class="p">,</span> <span class="s1">&#39;checkpoints&#39;</span><span class="p">,</span> <span class="s1">&#39;test_id&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+<div>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>dataset</th>
+      <th>pipeline</th>
+      <th>checkpoints</th>
+      <th>test_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1716</th>
+      <td>59_umls</td>
+      <td>NaN</td>
+      <td>[900, 1800, 3600, 7200]</td>
+      <td>20181031040541366347</td>
+    </tr>
+    <tr>
+      <th>2141</th>
+      <td>59_umls</td>
+      <td>graph/link_prediction/random_forest_classifier</td>
+      <td>[900, 1800, 3600, 7200]</td>
+      <td>20181031182305995728</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+<div class="section" id="the-experiment-results">
+<h3>The Experiment Results<a class="headerlink" href="#the-experiment-results" title="Permalink to this headline">¶</a></h3>
+<p>The results of the experiments can be seen using the <code class="docutils literal notranslate"><span class="pre">get_experiment_results</span></code> method.</p>
+<p>These results include both the cross validation score obtained by the pipeline during
+the tuning, as well as the score obtained by this pipeline once it has been fitted
+using the training data and then used to make predictions over the test data.</p>
+<p>Just like the <code class="docutils literal notranslate"><span class="pre">get_datasets</span></code>, any keyword arguments will be used to filter the results,
+including the <code class="docutils literal notranslate"><span class="pre">test_id</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">piex</span><span class="o">.</span><span class="n">get_test_results</span><span class="p">(</span><span class="n">test_id</span><span class="o">=</span><span class="s1">&#39;20181031182305995728&#39;</span><span class="p">)</span>
+<span class="n">results</span><span class="p">[[</span><span class="s1">&#39;test_id&#39;</span><span class="p">,</span> <span class="s1">&#39;pipeline&#39;</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">,</span> <span class="s1">&#39;cv_score&#39;</span><span class="p">,</span> <span class="s1">&#39;elapsed&#39;</span><span class="p">,</span> <span class="s1">&#39;iterations&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+<div>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>test_id</th>
+      <th>pipeline</th>
+      <th>score</th>
+      <th>cv_score</th>
+      <th>elapsed</th>
+      <th>iterations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>7464</th>
+      <td>20181031182305995728</td>
+      <td>graph/link_prediction/random_forest_classifier</td>
+      <td>0.499853</td>
+      <td>0.843175</td>
+      <td>900.255511</td>
+      <td>435.0</td>
+    </tr>
+    <tr>
+      <th>7465</th>
+      <td>20181031182305995728</td>
+      <td>graph/link_prediction/random_forest_classifier</td>
+      <td>0.499853</td>
+      <td>0.854603</td>
+      <td>1800.885417</td>
+      <td>805.0</td>
+    </tr>
+    <tr>
+      <th>7466</th>
+      <td>20181031182305995728</td>
+      <td>graph/link_prediction/random_forest_classifier</td>
+      <td>0.499853</td>
+      <td>0.854603</td>
+      <td>3600.005072</td>
+      <td>1432.0</td>
+    </tr>
+    <tr>
+      <th>7467</th>
+      <td>20181031182305995728</td>
+      <td>graph/link_prediction/random_forest_classifier</td>
+      <td>0.785568</td>
+      <td>0.860000</td>
+      <td>7200.225256</td>
+      <td>2366.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+<div class="section" id="the-best-pipeline">
+<h3>The Best Pipeline<a class="headerlink" href="#the-best-pipeline" title="Permalink to this headline">¶</a></h3>
+<p>Information about the best pipeline for a dataset can be obtained using the <code class="docutils literal notranslate"><span class="pre">get_best_pipeline</span></code> method.</p>
+<p>This method returns a <code class="docutils literal notranslate"><span class="pre">pandas.Series</span></code> object with information about the pipeline that obtained the
+best cross validation score during the tuning, as well as the template that was used to build it.</p>
+<p><strong>Note</strong>: This call will download some data in the background the first time that it is run,
+so it might take a while to return.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">piex</span><span class="o">.</span><span class="n">get_best_pipeline</span><span class="p">(</span><span class="s1">&#39;185_baseball&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>id                            17385666-31da-4b6e-ab7f-8ac7080a4d55
+dataset                                 185_baseball_dataset_TRAIN
+metric                                                     f1Macro
+name             categorical_encoder/imputer/standard_scaler/xg...
+rank                                                      0.307887
+score                                                     0.692113
+template                                  5bd0ce5249e71569e8bf8003
+test_id                                       20181024234726559170
+pipeline         categorical_encoder/imputer/standard_scaler/xg...
+data_modality                                         single_table
+task_type                                           classification
+Name: 1149699, dtype: object
+</pre></div>
+</div>
+<p>Apart from obtaining this information, we can use the <code class="docutils literal notranslate"><span class="pre">load_best_pipeline</span></code> method
+to load its JSON specification, ready to be using in an <code class="docutils literal notranslate"><span class="pre">mlblocks.MLPipeline</span></code> object.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">piex</span><span class="o">.</span><span class="n">load_best_pipeline</span><span class="p">(</span><span class="s1">&#39;185_baseball&#39;</span><span class="p">)</span>
+<span class="n">pipeline</span><span class="p">[</span><span class="s1">&#39;primitives&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>[&#39;mlprimitives.feature_extraction.CategoricalEncoder&#39;,
+ &#39;sklearn.preprocessing.Imputer&#39;,
+ &#39;sklearn.preprocessing.StandardScaler&#39;,
+ &#39;mlprimitives.preprocessing.ClassEncoder&#39;,
+ &#39;xgboost.XGBClassifier&#39;,
+ &#39;mlprimitives.preprocessing.ClassDecoder&#39;]
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-best-template">
+<h3>The Best Template<a class="headerlink" href="#the-best-template" title="Permalink to this headline">¶</a></h3>
+<p>Just like the best pipeline, the best tempalte for a given dataset can be obtained using
+the <code class="docutils literal notranslate"><span class="pre">get_best_template</span></code> method.</p>
+<p>This returns just the name of the template that was used to build the best pipeline.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">template_name</span> <span class="o">=</span> <span class="n">piex</span><span class="o">.</span><span class="n">get_best_template</span><span class="p">(</span><span class="s1">&#39;185_baseball&#39;</span><span class="p">)</span>
+<span class="n">template_name</span>
+</pre></div>
+</div>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>&#39;categorical_encoder/imputer/standard_scaler/xgbclassifier&#39;
+</pre></div>
+</div>
+<p>This can be later on used to explore the template, obtaining its default hyperparameters:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">defaults</span> <span class="o">=</span> <span class="n">piex</span><span class="o">.</span><span class="n">get_default_hyperparameters</span><span class="p">(</span><span class="n">template_name</span><span class="p">)</span>
+<span class="n">defaults</span>
+</pre></div>
+</div>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>{&#39;mlprimitives.feature_extraction.CategoricalEncoder#1&#39;: {&#39;copy&#39;: True,
+  &#39;features&#39;: &#39;auto&#39;,
+  &#39;max_labels&#39;: 0},
+ &#39;sklearn.preprocessing.Imputer#1&#39;: {&#39;missing_values&#39;: &#39;NaN&#39;,
+  &#39;axis&#39;: 0,
+  &#39;copy&#39;: True,
+  &#39;strategy&#39;: &#39;mean&#39;},
+ &#39;sklearn.preprocessing.StandardScaler#1&#39;: {&#39;with_mean&#39;: True,
+  &#39;with_std&#39;: True},
+ &#39;mlprimitives.preprocessing.ClassEncoder#1&#39;: {},
+ &#39;xgboost.XGBClassifier#1&#39;: {&#39;n_jobs&#39;: -1,
+  &#39;n_estimators&#39;: 100,
+  &#39;max_depth&#39;: 3,
+  &#39;learning_rate&#39;: 0.1,
+  &#39;gamma&#39;: 0,
+  &#39;min_child_weight&#39;: 1},
+ &#39;mlprimitives.preprocessing.ClassDecoder#1&#39;: {}}
+</pre></div>
+</div>
+<p>Or obtaning the corresponding tunable ranges, ready to be used with a tuner:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tunable</span> <span class="o">=</span> <span class="n">piex</span><span class="o">.</span><span class="n">get_tunable_hyperparameters</span><span class="p">(</span><span class="n">template_name</span><span class="p">)</span>
+<span class="n">tunable</span>
+</pre></div>
+</div>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>{&#39;mlprimitives.feature_extraction.CategoricalEncoder#1&#39;: {&#39;max_labels&#39;: {&#39;type&#39;: &#39;int&#39;,
+   &#39;default&#39;: 0,
+   &#39;range&#39;: [0, 100]}},
+ &#39;sklearn.preprocessing.Imputer#1&#39;: {&#39;strategy&#39;: {&#39;type&#39;: &#39;str&#39;,
+   &#39;default&#39;: &#39;mean&#39;,
+   &#39;values&#39;: [&#39;mean&#39;, &#39;median&#39;, &#39;most_frequent&#39;]}},
+ &#39;sklearn.preprocessing.StandardScaler#1&#39;: {&#39;with_mean&#39;: {&#39;type&#39;: &#39;bool&#39;,
+   &#39;default&#39;: True},
+  &#39;with_std&#39;: {&#39;type&#39;: &#39;bool&#39;, &#39;default&#39;: True}},
+ &#39;mlprimitives.preprocessing.ClassEncoder#1&#39;: {},
+ &#39;xgboost.XGBClassifier#1&#39;: {&#39;n_estimators&#39;: {&#39;type&#39;: &#39;int&#39;,
+   &#39;default&#39;: 100,
+   &#39;range&#39;: [10, 1000]},
+  &#39;max_depth&#39;: {&#39;type&#39;: &#39;int&#39;, &#39;default&#39;: 3, &#39;range&#39;: [3, 10]},
+  &#39;learning_rate&#39;: {&#39;type&#39;: &#39;float&#39;, &#39;default&#39;: 0.1, &#39;range&#39;: [0, 1]},
+  &#39;gamma&#39;: {&#39;type&#39;: &#39;float&#39;, &#39;default&#39;: 0, &#39;range&#39;: [0, 1]},
+  &#39;min_child_weight&#39;: {&#39;type&#39;: &#39;int&#39;, &#39;default&#39;: 1, &#39;range&#39;: [1, 10]}},
+ &#39;mlprimitives.preprocessing.ClassDecoder#1&#39;: {}}
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="scoring-templates-and-pipelines">
+<h1>Scoring Templates and Pipelines<a class="headerlink" href="#scoring-templates-and-pipelines" title="Permalink to this headline">¶</a></h1>
+<p>The <strong>S3PipelineExplorer</strong> class also allows cross validating templates and pipelines
+over any of the datasets.</p>
+<div class="section" id="scoring-a-pipeline">
+<h2>Scoring a Pipeline<a class="headerlink" href="#scoring-a-pipeline" title="Permalink to this headline">¶</a></h2>
+<p>The simplest use case is cross validating a pipeline over a dataset.
+For this, we must pass the ID of the pipeline and the name of the dataset to the method <code class="docutils literal notranslate"><span class="pre">score_pipeline</span></code>.</p>
+<p>The dataset can be the one that was used during the experiments or a different one.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">piex</span><span class="o">.</span><span class="n">score_pipeline</span><span class="p">(</span><span class="n">pipeline</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="s1">&#39;185_baseball&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>(0.6921128080904511, 0.09950216269594728)
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">piex</span><span class="o">.</span><span class="n">score_pipeline</span><span class="p">(</span><span class="n">pipeline</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="s1">&#39;uu4_SPECT&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>(0.8897656842904123, 0.037662864373452655)
+</pre></div>
+</div>
+<p>Optionally, the cross validation configuration can be changed</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">piex</span><span class="o">.</span><span class="n">score_pipeline</span><span class="p">(</span><span class="n">pipeline</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="s1">&#39;uu4_SPECT&#39;</span><span class="p">,</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">43</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>(0.8869488536155202, 0.019475563687443638)
+</pre></div>
+</div>
+</div>
+<div class="section" id="scoring-a-template">
+<h2>Scoring a Template<a class="headerlink" href="#scoring-a-template" title="Permalink to this headline">¶</a></h2>
+<p>A Template can also be tested over any dataset by passing its name, the dataset and, optionally,
+the cross validation specification.</p>
+<p>If no hyperparameters are passed, the default ones will be used:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">piex</span><span class="o">.</span><span class="n">score_template</span><span class="p">(</span><span class="n">template_name</span><span class="p">,</span> <span class="s1">&#39;uu4_SPECT&#39;</span><span class="p">,</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">43</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>(0.8555346666968675, 0.028343173498423108)
+</pre></div>
+</div>
+<p>However, different hyperparameters can be passed as a dictionary:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">hyperparameters</span> <span class="o">=</span> <span class="n">piex</span><span class="o">.</span><span class="n">get_default_hyperparameters</span><span class="p">(</span><span class="n">template_name</span><span class="p">)</span>
+<span class="n">hyperparameters</span><span class="p">[</span><span class="s1">&#39;xgboost.XGBClassifier#1&#39;</span><span class="p">][</span><span class="s1">&#39;learning_rate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">piex</span><span class="o">.</span><span class="n">score_template</span><span class="p">(</span><span class="n">template_name</span><span class="p">,</span> <span class="s1">&#39;uu4_SPECT&#39;</span><span class="p">,</span> <span class="n">hyperparameters</span><span class="p">,</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">43</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>(0.8754554700753094, 0.019151608028236813)
+</pre></div>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="readme.html" class="btn btn-neutral float-right" title="Pipeline Explorer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, MIT Data To AI Lab
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

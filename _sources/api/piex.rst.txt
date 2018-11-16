@@ -1,0 +1,16 @@
+piex package
+============
+
+.. automodule:: piex
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+
+   piex.explorer
+   piex.scoring
+

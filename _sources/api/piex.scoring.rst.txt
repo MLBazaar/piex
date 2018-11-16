@@ -1,0 +1,7 @@
+piex.scoring module
+===================
+
+.. automodule:: piex.scoring
+    :members:
+    :undoc-members:
+    :show-inheritance:
