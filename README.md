@@ -15,11 +15,21 @@ thousands of MLBlocks pipelines and templates accross hundreds of datasets.
 
 ## Installation
 
+The simplest and recommended way to install the Pipeline Explorer is using `pip`:
+
+```bash
+pip install piex
+```
+
+Alternatively, you can also clone the repository and install it from sources
+
 ```bash
 $ git clone git@github.com:HDI-Project/piex.git
 $ cd piex
 $ pip install -e .
 ```
+
+Use the extras `dev` for development.
 
 # Usage
 
