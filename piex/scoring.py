@@ -3,10 +3,9 @@
 import logging
 
 import numpy as np
+from mit_d3m import load_dataset
 from mlblocks import MLPipeline
 from sklearn.model_selection import KFold, StratifiedKFold
-
-from mit_d3m import load_dataset
 
 LOGGER = logging.getLogger(__name__)
 
