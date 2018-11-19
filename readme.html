@@ -83,7 +83,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#templates">Templates</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pipelines">Pipelines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#datasets">Datasets</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#what-is-an-experiment-test">What is an experiment/test?</a></li>
 </ul>
 </li>
 </ul>
@@ -233,14 +233,17 @@ thousands of MLBlocks pipelines and templates across hundreds of datasets.</p>
 </div>
 <div class="section" id="overview">
 <h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
-<p>This repository contains a collection of classes and functions which allow to easily
-explore the results of a series of experiments run using MLBlocks pipelines over a
-large collection of Datasets.</p>
-<p>The results of these experiments were stored in a Database and later on uploaded to
-Amazon S3, from where they can be downloaded and analyzed using the Pipeline Explorer.</p>
+<p>This repository contains a collection of classes and functions which allows a user to easily explore the results of a series of experiments run by team MIT using MLBlocks pipelines over a large collection of Datasets.</p>
+<p>Along with this library we are releasing a number of fitted pipelines, their performance on cross validation, test data and metrics. The results of these experiments were stored in a Database and later on uploaded to Amazon S3, from where they can be downloaded and analyzed using the Pipeline Explorer.</p>
+<p>We will continuously add more pipelines, templates and datasets to our experiments and make them publicly available to the community.</p>
+<p>These can be used for the following purposes:</p>
+<ul class="simple">
+<li>Find what is the best score we found so far for a given dataset and task tupe (given the search space we defined and our tuners)</li>
+<li>Use information about pipeline performance to do meta learning</li>
+</ul>
 <div class="section" id="concepts">
 <h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
-<p>Before diving into the software usage, some concepts need to be explained.</p>
+<p>Before diving into the software usage, we briefly explain some concepts and terminology.</p>
 <div class="section" id="primitives">
 <h3>Primitives<a class="headerlink" href="#primitives" title="Permalink to this headline">¶</a></h3>
 <p>We call the smallest computational blocks used in a Machine Learning process
@@ -253,7 +256,7 @@ Amazon S3, from where they can be downloaded and analyzed using the Pipeline Exp
 </div>
 <div class="section" id="templates">
 <h3>Templates<a class="headerlink" href="#templates" title="Permalink to this headline">¶</a></h3>
-<p>Primitives can be combined in what we call <strong>Templates</strong>, which:</p>
+<p>Primitives can be combined to form what we call <strong>Templates</strong>, which:</p>
 <ul class="simple">
 <li>Have a list of primitives.</li>
 <li>Have some initialization arguments, which correspond to the initialization arguments
@@ -265,7 +268,7 @@ of their primitives.</li>
 <div class="section" id="pipelines">
 <h3>Pipelines<a class="headerlink" href="#pipelines" title="Permalink to this headline">¶</a></h3>
 <p>Templates can be used to build <strong>Pipelines</strong> by taking and fixing a set of valid
-hyperparameters from a Template. Hence, Pipelines:</p>
+hyperparameters for a Template. Hence, Pipelines:</p>
 <ul class="simple">
 <li>Have a list of primitives, which corresponds to the list of primitives of their template.</li>
 <li>Have some initialization arguments, which correspond to the initialization arguments
@@ -273,6 +276,7 @@ of their template.</li>
 <li>Have some hyperparameter values, which fall within the ranges of valid tunable
 hyperparameters of their template.</li>
 </ul>
+<p>A pipeline can be fitted and evaluated using the MLPipeline API in MLBlocks.</p>
 </div>
 <div class="section" id="datasets">
 <h3>Datasets<a class="headerlink" href="#datasets" title="Permalink to this headline">¶</a></h3>
@@ -283,16 +287,19 @@ evaluate the goodness-of-fit of each pipeline against a specific metric for each
 <p>Each dataset is stored in Amazon S3 in the <a class="reference external" href="https://github.com/mitll/d3m-schema">D3M format</a>,
 including the training and testing partitioning, and available for download using piex.</p>
 </div>
-<div class="section" id="experiments">
-<h3>Experiments<a class="headerlink" href="#experiments" title="Permalink to this headline">¶</a></h3>
-<p>Each of the experiments that were run covered only <strong>one or more datasets</strong> and <strong>one template</strong>,
-and consisted of a search process that used a Bayesian Tuning algorithm that tested <strong>multiple
-pipelines</strong> derived from the template and tried to find the best set of hyperparameters possible
-for that template on each dataset.</p>
-<p>During this process, the Cross Validation score obtained over the training partition by each
-pipeline was stored in a database and is available through piex.
-In parallel, at some points in time the best pipeline already found was validated against the
-testing data, and the obtained score was also stored in the database and is available through piex.</p>
+<div class="section" id="what-is-an-experiment-test">
+<h3>What is an experiment/test?<a class="headerlink" href="#what-is-an-experiment-test" title="Permalink to this headline">¶</a></h3>
+<p>Throughout our description we will refer to a search process as an <strong>experiment</strong> or a <strong>test</strong>. An experiment/test is defined as follows:</p>
+<ul class="simple">
+<li>It is given a dataset and a task</li>
+<li>It is given a template</li>
+<li>It then searches using a Bayesian tuning algorithm (using a tuner from our BTB library). Tuning algorithm tests multiple pipelines derived from the template and tries to find the best set of hyperparameters possible for that template on each dataset.</li>
+<li>During the search process, a collection of information is stored in the database and is available through piex. They are:<ul>
+<li>Cross Validation score obtained over the training partition by each pipeline fitted during the search process</li>
+<li>In parallel, at some points in time the best pipeline already found was validated against the testing data, and the   obtained score was also stored in the database.</li>
+</ul>
+</li>
+</ul>
 <p>Each experiment was given one or more of the following configuration values:</p>
 <ul class="simple">
 <li>Timeout: Maximum time that the search process is allowed to run.</li>
