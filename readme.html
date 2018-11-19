@@ -233,15 +233,54 @@ thousands of MLBlocks pipelines and templates across hundreds of datasets.</p>
 </div>
 <div class="section" id="overview">
 <h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
-<p>This repository contains a collection of classes and functions which allows a user to easily explore the results of a series of experiments run by team MIT using MLBlocks pipelines over a large collection of Datasets.</p>
-<p>Along with this library we are releasing a number of fitted pipelines, their performance on cross validation, test data and metrics. The results of these experiments were stored in a Database and later on uploaded to Amazon S3, from where they can be downloaded and analyzed using the Pipeline Explorer.</p>
-<p>We will continuously add more pipelines, templates and datasets to our experiments and make them publicly available to the community.</p>
+<p>This repository contains a collection of classes and functions which allows a user to easily
+explore the results of a series of experiments run by team MIT using MLBlocks pipelines over
+a large collection of Datasets.</p>
+<p>Along with this library we are releasing a number of fitted pipelines, their performance on
+cross validation, test data and metrics. The results of these experiments were stored in a
+Database and later on uploaded to Amazon S3, from where they can be downloaded and analyzed
+using the Pipeline Explorer.</p>
+<p>We will continuously add more pipelines, templates and datasets to our experiments and make
+them publicly available to the community.</p>
 <p>These can be used for the following purposes:</p>
 <ul class="simple">
-<li>Find what is the best score we found so far for a given dataset and task tupe (given the search space we defined and our tuners)</li>
+<li>Find what is the best score we found so far for a given dataset and task tupe (given the
+search space we defined and our tuners)</li>
 <li>Use information about pipeline performance to do meta learning</li>
 </ul>
-<div class="section" id="concepts">
+<p>Current summary of our experiments is:</p>
+<div>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+    </tr>
+    <tr>
+      <th># of</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>datasets</th>
+      <td>453</td>
+    </tr>
+    <tr>
+      <th>pipelines</th>
+      <td>2115907</td>
+    </tr>
+    <tr>
+      <th>templates</th>
+      <td>63</td>
+    </tr>
+    <tr>
+      <th>tests</th>
+      <td>2152</td>
+    </tr>
+  </tbody>
+</table>
+</div><div class="section" id="concepts">
 <h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
 <p>Before diving into the software usage, we briefly explain some concepts and terminology.</p>
 <div class="section" id="primitives">
@@ -316,6 +355,11 @@ scored against the testing data.</li>
 <h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>The simplest and recommended way to install the Pipeline Explorer is using pip:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install piex
+</pre></div>
+</div>
+<p>Alternatively, you can also clone the repository and install it from sources</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone git@github.com:HDI-Project/piex.git
 <span class="nb">cd</span> piex
 pip install -e .
@@ -337,12 +381,6 @@ of the experiments run for the Machine Learning Bazaar paper can be found.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">piex.explorer</span> <span class="kn">import</span> <span class="n">S3PipelineExplorer</span>
 
 <span class="n">piex</span> <span class="o">=</span> <span class="n">S3PipelineExplorer</span><span class="p">(</span><span class="s1">&#39;ml-pipelines-2018&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mlblocks</span>
-
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="section" id="the-datasets">
@@ -1017,7 +1055,8 @@ For this, we must pass the ID of the pipeline and the name of the dataset to the
 <div class="section" id="scoring-a-template">
 <h2>Scoring a Template<a class="headerlink" href="#scoring-a-template" title="Permalink to this headline">¶</a></h2>
 <p>A Template can also be tested over any dataset by passing its name, the dataset and, optionally,
-the cross validation specification. You have to make sure to choose template that is relevant for the task/data modality for which you want to use it.</p>
+the cross validation specification. You have to make sure to choose template that is relevant for
+the task/data modality for which you want to use it.</p>
 <p>If no hyperparameters are passed, the default ones will be used:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">piex</span><span class="o">.</span><span class="n">score_template</span><span class="p">(</span><span class="n">template_name</span><span class="p">,</span> <span class="s1">&#39;uu4_SPECT&#39;</span><span class="p">,</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">43</span><span class="p">)</span>
 </pre></div>
@@ -1025,8 +1064,11 @@ the cross validation specification. You have to make sure to choose template tha
 <div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>(0.8555346666968675, 0.028343173498423108)
 </pre></div>
 </div>
-<p>You can get the default hyperparameters, and update the hyperparameters by setting values in the dictionary:</p>
-<p><strong>With this anyone can tune the templates that we have for different task/data modality types using their own AutoML routine. If you choose to do so, let us know the score you are getting and the pipeline and we will add to our database.</strong></p>
+<p>You can get the default hyperparameters, and update the hyperparameters by setting values
+in the dictionary:</p>
+<p><strong>With this anyone can tune the templates that we have for different task/data modality
+types using their own AutoML routine. If you choose to do so, let us know the score you
+are getting and the pipeline and we will add to our database.</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">hyperparameters</span> <span class="o">=</span> <span class="n">piex</span><span class="o">.</span><span class="n">get_default_hyperparameters</span><span class="p">(</span><span class="n">template_name</span><span class="p">)</span>
 <span class="n">hyperparameters</span><span class="p">[</span><span class="s1">&#39;xgboost.XGBClassifier#1&#39;</span><span class="p">][</span><span class="s1">&#39;learning_rate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
 
