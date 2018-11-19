@@ -30,7 +30,7 @@ We call the smallest computational blocks used in a Machine Learning process
 **primitives**, which:
 
 * Can be either classes or functions.
-* Have some initialization arguments, which MLBlocks called `init_params`.
+* Have some initialization arguments, which MLBlocks calls `init_params`.
 * Have some tunable hyperparameters, which have types and a list or range of valid values.
 
 ### Templates
@@ -63,8 +63,7 @@ used respectively to find and fit the optimal pipeline for each dataset, and to 
 evaluate the goodness-of-fit of each pipeline against a specific metric for each dataset.
 
 Each dataset is stored in Amazon S3 in the [D3M format](https://github.com/mitll/d3m-schema),
-including the training and testing partitioning, and available for download using the Pipeline
-Explorer.
+including the training and testing partitioning, and available for download using piex.
 
 ### Experiments
 
@@ -76,7 +75,7 @@ for that template on each dataset.
 During this process, the Cross Validation score obtained over the training partition by each
 pipeline was stored in a database and is available through piex.
 In parallel, at some points in time the best pipeline already found was validated against the
-testing data, and the obtained score was also stored in the databased and available through piex.
+testing data, and the obtained score was also stored in the database and is available through piex.
 
 Each experiment was given one or more of the following configuration values:
 
@@ -252,12 +251,10 @@ datasets.head()
 
 The list of tests that have been executed can be obtained with the method `get_tests`.
 
-This method returns a `pandas.DataFrame` that contains a row for each experiment that has been run
-on each dataset.
-This dataset includes information about the dataset, the configuration used for the experiment,
-such as the template, the checkpoints or the budget, and information about the execution, such as
-the timestamp, the exact software version, the host that executed the test and whether there was
-an error or not.
+This method returns a `pandas.DataFrame` that contains a row for each experiment that has been run on each dataset.
+This dataset includes information about the dataset, the configuration used for the experiment, such as the
+template, the checkpoints or the budget, and information about the execution, such as the timestamp, the exact
+software version, the host that executed the test and whether there was an error or not.
 
 Just like the `get_datasets`, any keyword arguments will be used to filter the results.
 
