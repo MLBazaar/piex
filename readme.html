@@ -1017,7 +1017,7 @@ For this, we must pass the ID of the pipeline and the name of the dataset to the
 <div class="section" id="scoring-a-template">
 <h2>Scoring a Template<a class="headerlink" href="#scoring-a-template" title="Permalink to this headline">¶</a></h2>
 <p>A Template can also be tested over any dataset by passing its name, the dataset and, optionally,
-the cross validation specification.</p>
+the cross validation specification. You have to make sure to choose template that is relevant for the task/data modality for which you want to use it.</p>
 <p>If no hyperparameters are passed, the default ones will be used:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">piex</span><span class="o">.</span><span class="n">score_template</span><span class="p">(</span><span class="n">template_name</span><span class="p">,</span> <span class="s1">&#39;uu4_SPECT&#39;</span><span class="p">,</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">43</span><span class="p">)</span>
 </pre></div>
@@ -1025,7 +1025,8 @@ the cross validation specification.</p>
 <div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>(0.8555346666968675, 0.028343173498423108)
 </pre></div>
 </div>
-<p>However, different hyperparameters can be passed as a dictionary:</p>
+<p>You can get the default hyperparameters, and update the hyperparameters by setting values in the dictionary:</p>
+<p><strong>With this anyone can tune the templates that we have for different task/data modality types using their own AutoML routine. If you choose to do so, let us know the score you are getting and the pipeline and we will add to our database.</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">hyperparameters</span> <span class="o">=</span> <span class="n">piex</span><span class="o">.</span><span class="n">get_default_hyperparameters</span><span class="p">(</span><span class="n">template_name</span><span class="p">)</span>
 <span class="n">hyperparameters</span><span class="p">[</span><span class="s1">&#39;xgboost.XGBClassifier#1&#39;</span><span class="p">][</span><span class="s1">&#39;learning_rate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
 
