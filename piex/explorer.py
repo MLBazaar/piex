@@ -267,8 +267,8 @@ class S3PipelineExplorer(PipelineExplorer):
         return df.loc[(df[list(filters)] == pd.Series(filters)).all(axis=1)].copy()
 
     def get_templates(self, **filters):
-        df = self._load_table('pipelines')
-        df['pipeline'] = df['name']
+        df = self._load_table('templates')
+        df.rename(columns={'data_type': 'data_modality'}, inplace=True)
         return df.loc[(df[list(filters)] == pd.Series(filters)).all(axis=1)].copy()
 
     def get_datasets(self, **filters):

@@ -1,3 +1,4 @@
+
 [![PyPI Shield](https://img.shields.io/pypi/v/piex.svg)](https://pypi.python.org/pypi/piex)
 [![Travis CI Shield](https://travis-ci.org/HDI-Project/piex.svg?branch=master)](https://travis-ci.org/HDI-Project/piex)
 
@@ -13,17 +14,58 @@ thousands of MLBlocks pipelines and templates across hundreds of datasets.
 
 # Overview
 
-This repository contains a collection of classes and functions which allows a user to easily explore the results of a series of experiments run by team MIT using MLBlocks pipelines over a large collection of Datasets.
+This repository contains a collection of classes and functions which allows a user to easily
+explore the results of a series of experiments run by team MIT using MLBlocks pipelines over
+a large collection of Datasets.
 
-Along with this library we are releasing a number of fitted pipelines, their performance on cross validation, test data and metrics. The results of these experiments were stored in a Database and later on uploaded to Amazon S3, from where they can be downloaded and analyzed using the Pipeline Explorer. 
+Along with this library we are releasing a number of fitted pipelines, their performance on
+cross validation, test data and metrics. The results of these experiments were stored in a
+Database and later on uploaded to Amazon S3, from where they can be downloaded and analyzed
+using the Pipeline Explorer.
 
-We will continuously add more pipelines, templates and datasets to our experiments and make them publicly available to the community. 
+We will continuously add more pipelines, templates and datasets to our experiments and make
+them publicly available to the community.
 
 These can be used for the following purposes:
 
-* Find what is the best score we found so far for a given dataset and task tupe (given the search space we defined and our tuners)
-* Use information about pipeline performance to do meta learning 
+* Find what is the best score we found so far for a given dataset and task tupe (given the
+  search space we defined and our tuners)
+* Use information about pipeline performance to do meta learning
 
+Current summary of our experiments is:
+
+<div>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+    </tr>
+    <tr>
+      <th># of</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>datasets</th>
+      <td>453</td>
+    </tr>
+    <tr>
+      <th>pipelines</th>
+      <td>2115907</td>
+    </tr>
+    <tr>
+      <th>templates</th>
+      <td>63</td>
+    </tr>
+    <tr>
+      <th>tests</th>
+      <td>2152</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
 
 ## Concepts
@@ -59,8 +101,8 @@ hyperparameters for a Template. Hence, Pipelines:
   of their template.
 * Have some hyperparameter values, which fall within the ranges of valid tunable
   hyperparameters of their template.
-
-A pipeline can be fitted and evaluated using the MLPipeline API in MLBlocks. 
+  
+A pipeline can be fitted and evaluated using the MLPipeline API in MLBlocks.
 
 ### Datasets
 
@@ -76,14 +118,13 @@ including the training and testing partitioning, and available for download usin
 ### What is an experiment/test? 
 
 Throughout our description we will refer to a search process as an **experiment** or a **test**. An experiment/test is defined as follows:
-
+ 
 * It is given a dataset and a task 
 * It is given a template
 * It then searches using a Bayesian tuning algorithm (using a tuner from our BTB library). Tuning algorithm tests multiple pipelines derived from the template and tries to find the best set of hyperparameters possible for that template on each dataset.
 * During the search process, a collection of information is stored in the database and is available through piex. They are: 
     * Cross Validation score obtained over the training partition by each pipeline fitted during the search process 
     * In parallel, at some points in time the best pipeline already found was validated against the testing data, and the   obtained score was also stored in the database.
-
 
 Each experiment was given one or more of the following configuration values:
 
@@ -99,12 +140,19 @@ Each experiment was given one or more of the following configuration values:
 
 ## Installation
 
+The simplest and recommended way to install the Pipeline Explorer is using pip:
+
+```bash
+pip install piex
+```
+
+Alternatively, you can also clone the repository and install it from sources
+
 ```bash
 git clone git@github.com:HDI-Project/piex.git
 cd piex
 pip install -e .
 ```
-
 
 # Usage
 
@@ -125,14 +173,6 @@ of the experiments run for the Machine Learning Bazaar paper can be found.
 from piex.explorer import S3PipelineExplorer
 
 piex = S3PipelineExplorer('ml-pipelines-2018')
-```
-
-
-```python
-import mlblocks
-
-import warnings
-warnings.filterwarnings("ignore", category=DeprecationWarning)
 ```
 
 ### The Datasets
@@ -926,7 +966,8 @@ piex.score_pipeline(pipeline['id'], 'uu4_SPECT', n_splits=3, random_state=43)
 ## Scoring a Template
 
 A Template can also be tested over any dataset by passing its name, the dataset and, optionally,
-the cross validation specification. You have to make sure to choose template that is relevant for the task/data modality for which you want to use it. 
+the cross validation specification. You have to make sure to choose template that is relevant for
+the task/data modality for which you want to use it.
 
 If no hyperparameters are passed, the default ones will be used:
 
@@ -942,9 +983,12 @@ piex.score_template(template_name, 'uu4_SPECT', n_splits=3, random_state=43)
 
 
 
-You can get the default hyperparameters, and update the hyperparameters by setting values in the dictionary:
+You can get the default hyperparameters, and update the hyperparameters by setting values
+in the dictionary:
 
-**With this anyone can tune the templates that we have for different task/data modality types using their own AutoML routine. If you choose to do so, let us know the score you are getting and the pipeline and we will add to our database.**
+**With this anyone can tune the templates that we have for different task/data modality
+types using their own AutoML routine. If you choose to do so, let us know the score you
+are getting and the pipeline and we will add to our database.**
 
 
 ```python
@@ -958,5 +1002,3 @@ piex.score_template(template_name, 'uu4_SPECT', hyperparameters, n_splits=3, ran
 
 
     (0.8754554700753094, 0.019151608028236813)
-
-
