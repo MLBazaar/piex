@@ -327,14 +327,20 @@ including the training and testing partitioning, and available for download usin
 </div>
 <div class="section" id="what-is-an-experiment-test">
 <h3>What is an experiment/test?<a class="headerlink" href="#what-is-an-experiment-test" title="Permalink to this headline">¶</a></h3>
-<p>Throughout our description we will refer to a search process as an <strong>experiment</strong> or a <strong>test</strong>. An experiment/test is defined as follows:</p>
+<p>Throughout our description we will refer to a search process as an <strong>experiment</strong> or a <strong>test</strong>.
+An experiment/test is defined as follows:</p>
 <ul class="simple">
 <li>It is given a dataset and a task</li>
 <li>It is given a template</li>
-<li>It then searches using a Bayesian tuning algorithm (using a tuner from our BTB library). Tuning algorithm tests multiple pipelines derived from the template and tries to find the best set of hyperparameters possible for that template on each dataset.</li>
-<li>During the search process, a collection of information is stored in the database and is available through piex. They are:<ul>
-<li>Cross Validation score obtained over the training partition by each pipeline fitted during the search process</li>
-<li>In parallel, at some points in time the best pipeline already found was validated against the testing data, and the   obtained score was also stored in the database.</li>
+<li>It then searches using a Bayesian tuning algorithm (using a tuner from our BTB library). Tuning
+algorithm tests multiple pipelines derived from the template and tries to find the best set of
+hyperparameters possible for that template on each dataset.</li>
+<li>During the search process, a collection of information is stored in the database and is
+available through piex. They are:<ul>
+<li>Cross Validation score obtained over the training partition by each pipeline fitted during
+the search process.</li>
+<li>In parallel, at some points in time the best pipeline already found was validated against
+the testing data, and the   obtained score was also stored in the database.</li>
 </ul>
 </li>
 </ul>
