@@ -37,10 +37,6 @@ Current summary of our experiments is:
 <div>
 <table class="dataframe">
   <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th></th>
-    </tr>
     <tr>
       <th># of</th>
       <th></th>
