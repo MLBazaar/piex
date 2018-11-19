@@ -28,7 +28,7 @@ them publicly available to the community.
 
 These can be used for the following purposes:
 
-* Find what is the best score we found so far for a given dataset and task tupe (given the
+* Find what is the best score we found so far for a given dataset and task type (given the
   search space we defined and our tuners)
 * Use information about pipeline performance to do meta learning
 
