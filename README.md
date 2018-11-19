@@ -101,7 +101,7 @@ hyperparameters for a Template. Hence, Pipelines:
   of their template.
 * Have some hyperparameter values, which fall within the ranges of valid tunable
   hyperparameters of their template.
-  
+
 A pipeline can be fitted and evaluated using the MLPipeline API in MLBlocks.
 
 ### Datasets
@@ -115,16 +115,22 @@ evaluate the goodness-of-fit of each pipeline against a specific metric for each
 Each dataset is stored in Amazon S3 in the [D3M format](https://github.com/mitll/d3m-schema),
 including the training and testing partitioning, and available for download using piex.
 
-### What is an experiment/test? 
+### What is an experiment/test?
 
-Throughout our description we will refer to a search process as an **experiment** or a **test**. An experiment/test is defined as follows:
- 
-* It is given a dataset and a task 
+Throughout our description we will refer to a search process as an **experiment** or a **test**.
+An experiment/test is defined as follows:
+
+* It is given a dataset and a task
 * It is given a template
-* It then searches using a Bayesian tuning algorithm (using a tuner from our BTB library). Tuning algorithm tests multiple pipelines derived from the template and tries to find the best set of hyperparameters possible for that template on each dataset.
-* During the search process, a collection of information is stored in the database and is available through piex. They are: 
-    * Cross Validation score obtained over the training partition by each pipeline fitted during the search process 
-    * In parallel, at some points in time the best pipeline already found was validated against the testing data, and the   obtained score was also stored in the database.
+* It then searches using a Bayesian tuning algorithm (using a tuner from our BTB library). Tuning
+  algorithm tests multiple pipelines derived from the template and tries to find the best set of
+  hyperparameters possible for that template on each dataset.
+* During the search process, a collection of information is stored in the database and is
+  available through piex. They are:
+    * Cross Validation score obtained over the training partition by each pipeline fitted during
+      the search process.
+    * In parallel, at some points in time the best pipeline already found was validated against
+      the testing data, and the   obtained score was also stored in the database.
 
 Each experiment was given one or more of the following configuration values:
 
