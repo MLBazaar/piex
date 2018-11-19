@@ -13,16 +13,22 @@ thousands of MLBlocks pipelines and templates across hundreds of datasets.
 
 # Overview
 
-This repository contains a collection of classes and functions which allow to easily
-explore the results of a series of experiments run using MLBlocks pipelines over a
-large collection of Datasets.
+This repository contains a collection of classes and functions which allows a user to easily explore the results of a series of experiments run by team MIT using MLBlocks pipelines over a large collection of Datasets.
 
-The results of these experiments were stored in a Database and later on uploaded to
-Amazon S3, from where they can be downloaded and analyzed using the Pipeline Explorer.
+Along with this library we are releasing a number of fitted pipelines, their performance on cross validation, test data and metrics. The results of these experiments were stored in a Database and later on uploaded to Amazon S3, from where they can be downloaded and analyzed using the Pipeline Explorer. 
+
+We will continuously add more pipelines, templates and datasets to our experiments and make them publicly available to the community. 
+
+These can be used for the following purposes:
+
+* Find what is the best score we found so far for a given dataset and task tupe (given the search space we defined and our tuners)
+* Use information about pipeline performance to do meta learning 
+
+
 
 ## Concepts
 
-Before diving into the software usage, some concepts need to be explained.
+Before diving into the software usage, we briefly explain some concepts and terminology.
 
 ### Primitives
 
@@ -35,7 +41,7 @@ We call the smallest computational blocks used in a Machine Learning process
 
 ### Templates
 
-Primitives can be combined in what we call **Templates**, which:
+Primitives can be combined to form what we call **Templates**, which:
 
 * Have a list of primitives.
 * Have some initialization arguments, which correspond to the initialization arguments
@@ -46,13 +52,15 @@ Primitives can be combined in what we call **Templates**, which:
 ### Pipelines
 
 Templates can be used to build **Pipelines** by taking and fixing a set of valid
-hyperparameters from a Template. Hence, Pipelines:
+hyperparameters for a Template. Hence, Pipelines:
 
 * Have a list of primitives, which corresponds to the list of primitives of their template.
 * Have some initialization arguments, which correspond to the initialization arguments
   of their template.
 * Have some hyperparameter values, which fall within the ranges of valid tunable
   hyperparameters of their template.
+
+A pipeline can be fitted and evaluated using the MLPipeline API in MLBlocks. 
 
 ### Datasets
 
@@ -65,17 +73,17 @@ evaluate the goodness-of-fit of each pipeline against a specific metric for each
 Each dataset is stored in Amazon S3 in the [D3M format](https://github.com/mitll/d3m-schema),
 including the training and testing partitioning, and available for download using piex.
 
-### Experiments
+### What is an experiment/test? 
 
-Each of the experiments that were run covered only **one or more datasets** and **one template**,
-and consisted of a search process that used a Bayesian Tuning algorithm that tested **multiple
-pipelines** derived from the template and tried to find the best set of hyperparameters possible
-for that template on each dataset.
+Throughout our description we will refer to a search process as an **experiment** or a **test**. An experiment/test is defined as follows:
 
-During this process, the Cross Validation score obtained over the training partition by each
-pipeline was stored in a database and is available through piex.
-In parallel, at some points in time the best pipeline already found was validated against the
-testing data, and the obtained score was also stored in the database and is available through piex.
+* It is given a dataset and a task 
+* It is given a template
+* It then searches using a Bayesian tuning algorithm (using a tuner from our BTB library). Tuning algorithm tests multiple pipelines derived from the template and tries to find the best set of hyperparameters possible for that template on each dataset.
+* During the search process, a collection of information is stored in the database and is available through piex. They are: 
+    * Cross Validation score obtained over the training partition by each pipeline fitted during the search process 
+    * In parallel, at some points in time the best pipeline already found was validated against the testing data, and the   obtained score was also stored in the database.
+
 
 Each experiment was given one or more of the following configuration values:
 
