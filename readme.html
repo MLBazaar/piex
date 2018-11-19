@@ -247,7 +247,7 @@ Amazon S3, from where they can be downloaded and analyzed using the Pipeline Exp
 <strong>primitives</strong>, which:</p>
 <ul class="simple">
 <li>Can be either classes or functions.</li>
-<li>Have some initialization arguments, which MLBlocks called <code class="docutils literal notranslate"><span class="pre">init_params</span></code>.</li>
+<li>Have some initialization arguments, which MLBlocks calls <code class="docutils literal notranslate"><span class="pre">init_params</span></code>.</li>
 <li>Have some tunable hyperparameters, which have types and a list or range of valid values.</li>
 </ul>
 </div>
@@ -281,8 +281,7 @@ hyperparameters of their template.</li>
 used respectively to find and fit the optimal pipeline for each dataset, and to later on
 evaluate the goodness-of-fit of each pipeline against a specific metric for each dataset.</p>
 <p>Each dataset is stored in Amazon S3 in the <a class="reference external" href="https://github.com/mitll/d3m-schema">D3M format</a>,
-including the training and testing partitioning, and available for download using the Pipeline
-Explorer.</p>
+including the training and testing partitioning, and available for download using piex.</p>
 </div>
 <div class="section" id="experiments">
 <h3>Experiments<a class="headerlink" href="#experiments" title="Permalink to this headline">¶</a></h3>
@@ -293,7 +292,7 @@ for that template on each dataset.</p>
 <p>During this process, the Cross Validation score obtained over the training partition by each
 pipeline was stored in a database and is available through piex.
 In parallel, at some points in time the best pipeline already found was validated against the
-testing data, and the obtained score was also stored in the databased and available through piex.</p>
+testing data, and the obtained score was also stored in the database and is available through piex.</p>
 <p>Each experiment was given one or more of the following configuration values:</p>
 <ul class="simple">
 <li>Timeout: Maximum time that the search process is allowed to run.</li>
@@ -438,12 +437,10 @@ available datasets, their data modalities, task types and task subtypes.</p>
 <div class="section" id="the-experiments">
 <h3>The Experiments<a class="headerlink" href="#the-experiments" title="Permalink to this headline">¶</a></h3>
 <p>The list of tests that have been executed can be obtained with the method <code class="docutils literal notranslate"><span class="pre">get_tests</span></code>.</p>
-<p>This method returns a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> that contains a row for each experiment that has been run
-on each dataset.
-This dataset includes information about the dataset, the configuration used for the experiment,
-such as the template, the checkpoints or the budget, and information about the execution, such as
-the timestamp, the exact software version, the host that executed the test and whether there was
-an error or not.</p>
+<p>This method returns a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> that contains a row for each experiment that has been run on each dataset.
+This dataset includes information about the dataset, the configuration used for the experiment, such as the
+template, the checkpoints or the budget, and information about the execution, such as the timestamp, the exact
+software version, the host that executed the test and whether there was an error or not.</p>
 <p>Just like the <code class="docutils literal notranslate"><span class="pre">get_datasets</span></code>, any keyword arguments will be used to filter the results.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 
