@@ -926,7 +926,7 @@ piex.score_pipeline(pipeline['id'], 'uu4_SPECT', n_splits=3, random_state=43)
 ## Scoring a Template
 
 A Template can also be tested over any dataset by passing its name, the dataset and, optionally,
-the cross validation specification.
+the cross validation specification. You have to make sure to choose template that is relevant for the task/data modality for which you want to use it. 
 
 If no hyperparameters are passed, the default ones will be used:
 
@@ -942,7 +942,9 @@ piex.score_template(template_name, 'uu4_SPECT', n_splits=3, random_state=43)
 
 
 
-However, different hyperparameters can be passed as a dictionary:
+You can get the default hyperparameters, and update the hyperparameters by setting values in the dictionary:
+
+**With this anyone can tune the templates that we have for different task/data modality types using their own AutoML routine. If you choose to do so, let us know the score you are getting and the pipeline and we will add to our database.**
 
 
 ```python
