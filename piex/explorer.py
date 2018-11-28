@@ -29,6 +29,10 @@ class PipelineExplorer:
 
         self.dfs = dict()
 
+    def _filter(self, df, filters):
+        df = df.loc[(df[list(filters)] == pd.Series(filters)).all(axis=1)]
+        return df.reset_index(drop=True).copy()
+
     def get_datasets(self, **filters):
         """Get a pandas DataFrame with information about the available datasets."""
         raise NotImplementedError
@@ -61,9 +65,16 @@ class PipelineExplorer:
         """Get the dict representation of the pipeline."""
         raise NotImplementedError
 
-    def load_template(self, template_name):
+    def _load_template(self, template_name):
         """Get the dict representation of the template."""
         raise NotImplementedError
+
+    def load_template(self, template_name):
+        """Get the dict representation of the template."""
+        template = self._load_template(template_name)
+        mlpipeline_dict = MLPipeline.from_dict(template).to_dict()
+        mlpipeline_dict['metadata'] = template['metadata']
+        return mlpipeline_dict
 
     def load_best_pipeline(self, dataset):
         """Get the dict representation of the best pipeline ever found for this dataset."""
@@ -83,12 +94,14 @@ class PipelineExplorer:
     def get_default_hyperparameters(self, template_name):
         """Get the default hyperparmeters of the given template."""
         template = self.load_template(template_name)
+        return template['hyperparameters']
         mlpipeline = MLPipeline.from_dict(template)
         return mlpipeline.get_hyperparameters()
 
     def get_tunable_hyperparameters(self, template_name):
         """Get the tunable hyperparmeters of the given template."""
         template = self.load_template(template_name)
+        return template['tunable_hyperparameters']
         mlpipeline = MLPipeline.from_dict(template)
         return mlpipeline.get_tunable_hyperparameters()
 
@@ -127,7 +140,7 @@ class MongoPipelineExplorer(PipelineExplorer):
         ddf = self._get_collection('datasets', filters, {'_id': 0})
         datasets = list(ddf.dataset.unique())
         tdf = self._get_collection('tests', {'dataset': {'$in': datasets}}, {'_id': 0})
-        return tdf.loc[(tdf[list(filters)] == pd.Series(filters)).all(axis=1)].copy()
+        return self._filter(tdf, filters)
 
     def get_test_results(self, **filters):
         rdf = self._get_collection('test_results', filters, {'_id': 0})
@@ -143,14 +156,16 @@ class MongoPipelineExplorer(PipelineExplorer):
 
         project = [
             '_id', 'loader', 'dataset', 'metric', 'name', 'rank',
-            'score', 'template', 'test_id', 'pipeline'
+            'score', 'template', 'test_id', 'pipeline', 'ts'
         ]
 
         df = self._get_collection('solutions', filters, project)
         df['pipeline'] = df['name']
+
         loader = df.pop('loader')
         df['data_modality'] = loader.apply(lambda l: l.get('data_modality'))
         df['task_type'] = loader.apply(lambda l: l.get('task_type'))
+
         return df
 
     def get_dataset_id(self, dataset):
@@ -201,8 +216,8 @@ class MongoPipelineExplorer(PipelineExplorer):
     def load_pipeline(self, pipeline_id):
         return self.db.solutions.find_one({'_id': pipeline_id})
 
-    def load_template(self, template_name):
-        return self.db.templates.find_one({'metadata.name': template_name})
+    def _load_template(self, template_name):
+        return self.db.pipelines.find_one({'metadata.name': template_name})
 
 
 class S3PipelineExplorer(PipelineExplorer):
@@ -255,25 +270,25 @@ class S3PipelineExplorer(PipelineExplorer):
         ddf = self._load_table('datasets')
         tdf = self._load_table('tests')
         tdf = tdf.merge(ddf, how='left', on='dataset')
-        return tdf.loc[(tdf[list(filters)] == pd.Series(filters)).all(axis=1)].copy()
+        return self._filter(tdf, filters)
 
     def get_test_results(self, **filters):
         rdf = self._load_table('test_results')
-        return rdf.loc[(rdf[list(filters)] == pd.Series(filters)).all(axis=1)]
+        return self._filter(rdf, filters)
 
     def get_pipelines(self, **filters):
         df = self._load_table('pipelines')
         df['pipeline'] = df['name']
-        return df.loc[(df[list(filters)] == pd.Series(filters)).all(axis=1)].copy()
+        return self._filter(df, filters)
 
     def get_templates(self, **filters):
         df = self._load_table('templates')
         df.rename(columns={'data_type': 'data_modality'}, inplace=True)
-        return df.loc[(df[list(filters)] == pd.Series(filters)).all(axis=1)].copy()
+        return self._filter(df, filters)
 
     def get_datasets(self, **filters):
         df = self._load_table('datasets').reindex(columns=self.DATASETS_COLUMNS)
-        df = df.loc[(df[list(filters)] == pd.Series(filters)).all(axis=1)].copy()
+        df = self._filter(df, filters)
         return df.sort_values(self.DATASETS_COLUMNS).dropna(subset=['task_type'])
 
     def get_dataset_id(self, dataset):
@@ -295,5 +310,5 @@ class S3PipelineExplorer(PipelineExplorer):
     def load_pipeline(self, pipeline_id):
         return self._get_json('pipelines', pipeline_id)
 
-    def load_template(self, template_name):
+    def _load_template(self, template_name):
         return self._get_json('templates', template_name.replace('/', '.'))
