@@ -114,8 +114,8 @@ Each dataset was split using a holdout method in two parts, training and testing
 used respectively to find and fit the optimal pipeline for each dataset, and to later on
 evaluate the goodness-of-fit of each pipeline against a specific metric for each dataset.
 
-Each dataset is stored in Amazon S3 in the [D3M format](https://github.com/mitll/d3m-schema),
-including the training and testing partitioning, and available for download using piex.
+This collection of datasets is stored in an Amazon S3 Bucket in the [D3M format](https://github.com/mitll/d3m-schema),
+including the training and testing partitioning, and can be downloaded both using piex or a web browser following this link: https://d3m-data-dai.s3.amazonaws.com/index.html
 
 ### What is an experiment/test?
 
