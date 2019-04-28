@@ -17,33 +17,35 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Pipeline Explorer" href="readme.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -229,9 +231,9 @@
 <p>Classes and functions to explore and reproduce the performance obtained by
 thousands of MLBlocks pipelines and templates across hundreds of datasets.</p>
 <ul class="simple">
-<li>Free software: MIT license</li>
-<li>Documentation: <a class="reference external" href="https://HDI-Project.github.io/piex">https://HDI-Project.github.io/piex</a></li>
-<li>Homepage: <a class="reference external" href="https://github.com/HDI-Project/piex">https://github.com/HDI-Project/piex</a></li>
+<li><p>Free software: MIT license</p></li>
+<li><p>Documentation: <a class="reference external" href="https://HDI-Project.github.io/piex">https://HDI-Project.github.io/piex</a></p></li>
+<li><p>Homepage: <a class="reference external" href="https://github.com/HDI-Project/piex">https://github.com/HDI-Project/piex</a></p></li>
 </ul>
 </div>
 <div class="section" id="overview">
@@ -247,9 +249,9 @@ using the Pipeline Explorer.</p>
 them publicly available to the community.</p>
 <p>These can be used for the following purposes:</p>
 <ul class="simple">
-<li>Find what is the best score we found so far for a given dataset and task type (given the
-search space we defined and our tuners)</li>
-<li>Use information about pipeline performance to do meta learning</li>
+<li><p>Find what is the best score we found so far for a given dataset and task type (given the
+search space we defined and our tuners)</p></li>
+<li><p>Use information about pipeline performance to do meta learning</p></li>
 </ul>
 <p>Current summary of our experiments is:</p>
 <div>
@@ -287,20 +289,20 @@ search space we defined and our tuners)</li>
 <p>We call the smallest computational blocks used in a Machine Learning process
 <strong>primitives</strong>, which:</p>
 <ul class="simple">
-<li>Can be either classes or functions.</li>
-<li>Have some initialization arguments, which MLBlocks calls <code class="docutils literal notranslate"><span class="pre">init_params</span></code>.</li>
-<li>Have some tunable hyperparameters, which have types and a list or range of valid values.</li>
+<li><p>Can be either classes or functions.</p></li>
+<li><p>Have some initialization arguments, which MLBlocks calls <code class="docutils literal notranslate"><span class="pre">init_params</span></code>.</p></li>
+<li><p>Have some tunable hyperparameters, which have types and a list or range of valid values.</p></li>
 </ul>
 </div>
 <div class="section" id="templates">
 <h3>Templates<a class="headerlink" href="#templates" title="Permalink to this headline">¶</a></h3>
 <p>Primitives can be combined to form what we call <strong>Templates</strong>, which:</p>
 <ul class="simple">
-<li>Have a list of primitives.</li>
-<li>Have some initialization arguments, which correspond to the initialization arguments
-of their primitives.</li>
-<li>Have some tunable hyperparameters, which correspond to the tunable hyperparameters
-of their primitives.</li>
+<li><p>Have a list of primitives.</p></li>
+<li><p>Have some initialization arguments, which correspond to the initialization arguments
+of their primitives.</p></li>
+<li><p>Have some tunable hyperparameters, which correspond to the tunable hyperparameters
+of their primitives.</p></li>
 </ul>
 </div>
 <div class="section" id="pipelines">
@@ -308,11 +310,11 @@ of their primitives.</li>
 <p>Templates can be used to build <strong>Pipelines</strong> by taking and fixing a set of valid
 hyperparameters for a Template. Hence, Pipelines:</p>
 <ul class="simple">
-<li>Have a list of primitives, which corresponds to the list of primitives of their template.</li>
-<li>Have some initialization arguments, which correspond to the initialization arguments
-of their template.</li>
-<li>Have some hyperparameter values, which fall within the ranges of valid tunable
-hyperparameters of their template.</li>
+<li><p>Have a list of primitives, which corresponds to the list of primitives of their template.</p></li>
+<li><p>Have some initialization arguments, which correspond to the initialization arguments
+of their template.</p></li>
+<li><p>Have some hyperparameter values, which fall within the ranges of valid tunable
+hyperparameters of their template.</p></li>
 </ul>
 <p>A pipeline can be fitted and evaluated using the MLPipeline API in MLBlocks.</p>
 </div>
@@ -330,28 +332,29 @@ including the training and testing partitioning, and can be downloaded both usin
 <p>Throughout our description we will refer to a search process as an <strong>experiment</strong> or a <strong>test</strong>.
 An experiment/test is defined as follows:</p>
 <ul class="simple">
-<li>It is given a dataset and a task</li>
-<li>It is given a template</li>
-<li>It then searches using a Bayesian tuning algorithm (using a tuner from our BTB library). Tuning
+<li><p>It is given a dataset and a task</p></li>
+<li><p>It is given a template</p></li>
+<li><p>It then searches using a Bayesian tuning algorithm (using a tuner from our BTB library). Tuning
 algorithm tests multiple pipelines derived from the template and tries to find the best set of
-hyperparameters possible for that template on each dataset.</li>
-<li>During the search process, a collection of information is stored in the database and is
-available through piex. They are:<ul>
-<li>Cross Validation score obtained over the training partition by each pipeline fitted during
-the search process.</li>
-<li>In parallel, at some points in time the best pipeline already found was validated against
-the testing data, and the   obtained score was also stored in the database.</li>
+hyperparameters possible for that template on each dataset.</p></li>
+<li><p>During the search process, a collection of information is stored in the database and is
+available through piex. They are:</p>
+<ul>
+<li><p>Cross Validation score obtained over the training partition by each pipeline fitted during
+the search process.</p></li>
+<li><p>In parallel, at some points in time the best pipeline already found was validated against
+the testing data, and the   obtained score was also stored in the database.</p></li>
 </ul>
 </li>
 </ul>
 <p>Each experiment was given one or more of the following configuration values:</p>
 <ul class="simple">
-<li>Timeout: Maximum time that the search process is allowed to run.</li>
-<li>Budget: Maximum number of tuning iterations that the search process is allowed to perform.</li>
-<li>Checkpoints: List of points in time, in seconds, where the best pipeline so far was
-scored against the testing data.</li>
-<li>Pipeline: The name of the template to use to build the pipelines.</li>
-<li>Tuner Type: The type of tuner to use, <code class="docutils literal notranslate"><span class="pre">gp</span></code> or <code class="docutils literal notranslate"><span class="pre">uniform</span></code>.</li>
+<li><p>Timeout: Maximum time that the search process is allowed to run.</p></li>
+<li><p>Budget: Maximum number of tuning iterations that the search process is allowed to perform.</p></li>
+<li><p>Checkpoints: List of points in time, in seconds, where the best pipeline so far was
+scored against the testing data.</p></li>
+<li><p>Pipeline: The name of the template to use to build the pipelines.</p></li>
+<li><p>Tuner Type: The type of tuner to use, <code class="docutils literal notranslate"><span class="pre">gp</span></code> or <code class="docutils literal notranslate"><span class="pre">uniform</span></code>.</p></li>
 </ul>
 </div>
 </div>
@@ -1094,9 +1097,9 @@ are getting and the pipeline and we will add to our database.</strong></p>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
 </div>
 
@@ -1135,26 +1138,16 @@ are getting and the pipeline and we will add to our database.</strong></p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>
