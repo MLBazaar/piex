@@ -399,7 +399,7 @@ available datasets, their data modalities, task types and task subtypes.</p>
 <span class="n">datasets</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 </div>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>(453, 4)
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">453</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">datasets</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -938,18 +938,18 @@ so it might take a while to return.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">piex</span><span class="o">.</span><span class="n">get_best_pipeline</span><span class="p">(</span><span class="s1">&#39;185_baseball&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>id                            17385666-31da-4b6e-ab7f-8ac7080a4d55
-dataset                                 185_baseball_dataset_TRAIN
-metric                                                     f1Macro
-name             categorical_encoder/imputer/standard_scaler/xg...
-rank                                                      0.307887
-score                                                     0.692113
-template                                  5bd0ce5249e71569e8bf8003
-test_id                                       20181024234726559170
-pipeline         categorical_encoder/imputer/standard_scaler/xg...
-data_modality                                         single_table
-task_type                                           classification
-Name: 1149699, dtype: object
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="n">id</span>                            <span class="mi">17385666</span><span class="o">-</span><span class="mi">31</span><span class="n">da</span><span class="o">-</span><span class="mi">4</span><span class="n">b6e</span><span class="o">-</span><span class="n">ab7f</span><span class="o">-</span><span class="mi">8</span><span class="n">ac7080a4d55</span>
+<span class="n">dataset</span>                                 <span class="mi">185</span><span class="n">_baseball_dataset_TRAIN</span>
+<span class="n">metric</span>                                                     <span class="n">f1Macro</span>
+<span class="n">name</span>             <span class="n">categorical_encoder</span><span class="o">/</span><span class="n">imputer</span><span class="o">/</span><span class="n">standard_scaler</span><span class="o">/</span><span class="n">xg</span><span class="p">...</span>
+<span class="n">rank</span>                                                      <span class="mi">0</span><span class="p">.</span><span class="mi">307887</span>
+<span class="n">score</span>                                                     <span class="mi">0</span><span class="p">.</span><span class="mi">692113</span>
+<span class="k">template</span>                                  <span class="mi">5</span><span class="n">bd0ce5249e71569e8bf8003</span>
+<span class="n">test_id</span>                                       <span class="mi">20181024234726559170</span>
+<span class="n">pipeline</span>         <span class="n">categorical_encoder</span><span class="o">/</span><span class="n">imputer</span><span class="o">/</span><span class="n">standard_scaler</span><span class="o">/</span><span class="n">xg</span><span class="p">...</span>
+<span class="n">data_modality</span>                                         <span class="n">single_table</span>
+<span class="n">task_type</span>                                           <span class="n">classification</span>
+<span class="n">Name</span><span class="p">:</span> <span class="mi">1149699</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="k">object</span>
 </pre></div>
 </div>
 <p>Apart from obtaining this information, we can use the <code class="docutils literal notranslate"><span class="pre">load_best_pipeline</span></code> method
@@ -958,12 +958,12 @@ to load its JSON specification, ready to be using in an <code class="docutils li
 <span class="n">pipeline</span><span class="p">[</span><span class="s1">&#39;primitives&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>[&#39;mlprimitives.feature_extraction.CategoricalEncoder&#39;,
- &#39;sklearn.preprocessing.Imputer&#39;,
- &#39;sklearn.preprocessing.StandardScaler&#39;,
- &#39;mlprimitives.preprocessing.ClassEncoder&#39;,
- &#39;xgboost.XGBClassifier&#39;,
- &#39;mlprimitives.preprocessing.ClassDecoder&#39;]
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;mlprimitives.feature_extraction.CategoricalEncoder&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;sklearn.preprocessing.Imputer&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;sklearn.preprocessing.StandardScaler&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;mlprimitives.preprocessing.ClassEncoder&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;xgboost.XGBClassifier&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;mlprimitives.preprocessing.ClassDecoder&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -976,7 +976,7 @@ the <code class="docutils literal notranslate"><span class="pre">get_best_templa
 <span class="n">template_name</span>
 </pre></div>
 </div>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>&#39;categorical_encoder/imputer/standard_scaler/xgbclassifier&#39;
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;categorical_encoder/imputer/standard_scaler/xgbclassifier&#39;</span>
 </pre></div>
 </div>
 <p>This can be later on used to explore the template, obtaining its default hyperparameters:</p>
@@ -984,23 +984,23 @@ the <code class="docutils literal notranslate"><span class="pre">get_best_templa
 <span class="n">defaults</span>
 </pre></div>
 </div>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>{&#39;mlprimitives.feature_extraction.CategoricalEncoder#1&#39;: {&#39;copy&#39;: True,
-  &#39;features&#39;: &#39;auto&#39;,
-  &#39;max_labels&#39;: 0},
- &#39;sklearn.preprocessing.Imputer#1&#39;: {&#39;missing_values&#39;: &#39;NaN&#39;,
-  &#39;axis&#39;: 0,
-  &#39;copy&#39;: True,
-  &#39;strategy&#39;: &#39;mean&#39;},
- &#39;sklearn.preprocessing.StandardScaler#1&#39;: {&#39;with_mean&#39;: True,
-  &#39;with_std&#39;: True},
- &#39;mlprimitives.preprocessing.ClassEncoder#1&#39;: {},
- &#39;xgboost.XGBClassifier#1&#39;: {&#39;n_jobs&#39;: -1,
-  &#39;n_estimators&#39;: 100,
-  &#39;max_depth&#39;: 3,
-  &#39;learning_rate&#39;: 0.1,
-  &#39;gamma&#39;: 0,
-  &#39;min_child_weight&#39;: 1},
- &#39;mlprimitives.preprocessing.ClassDecoder#1&#39;: {}}
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err">{</span><span class="s1">&#39;mlprimitives.feature_extraction.CategoricalEncoder#1&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;copy&#39;</span><span class="p">:</span> <span class="k">True</span><span class="p">,</span>
+  <span class="s1">&#39;features&#39;</span><span class="p">:</span> <span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;max_labels&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="err">}</span><span class="p">,</span>
+ <span class="s1">&#39;sklearn.preprocessing.Imputer#1&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;missing_values&#39;</span><span class="p">:</span> <span class="s1">&#39;NaN&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;axis&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="s1">&#39;copy&#39;</span><span class="p">:</span> <span class="k">True</span><span class="p">,</span>
+  <span class="s1">&#39;strategy&#39;</span><span class="p">:</span> <span class="s1">&#39;mean&#39;</span><span class="err">}</span><span class="p">,</span>
+ <span class="s1">&#39;sklearn.preprocessing.StandardScaler#1&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;with_mean&#39;</span><span class="p">:</span> <span class="k">True</span><span class="p">,</span>
+  <span class="s1">&#39;with_std&#39;</span><span class="p">:</span> <span class="k">True</span><span class="err">}</span><span class="p">,</span>
+ <span class="s1">&#39;mlprimitives.preprocessing.ClassEncoder#1&#39;</span><span class="p">:</span> <span class="err">{}</span><span class="p">,</span>
+ <span class="s1">&#39;xgboost.XGBClassifier#1&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;n_jobs&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+  <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+  <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="s1">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">,</span>
+  <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="s1">&#39;min_child_weight&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="err">}</span><span class="p">,</span>
+ <span class="s1">&#39;mlprimitives.preprocessing.ClassDecoder#1&#39;</span><span class="p">:</span> <span class="err">{}}</span>
 </pre></div>
 </div>
 <p>Or obtaining the corresponding tunable ranges, ready to be used with a tuner:</p>
@@ -1008,24 +1008,24 @@ the <code class="docutils literal notranslate"><span class="pre">get_best_templa
 <span class="n">tunable</span>
 </pre></div>
 </div>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>{&#39;mlprimitives.feature_extraction.CategoricalEncoder#1&#39;: {&#39;max_labels&#39;: {&#39;type&#39;: &#39;int&#39;,
-   &#39;default&#39;: 0,
-   &#39;range&#39;: [0, 100]}},
- &#39;sklearn.preprocessing.Imputer#1&#39;: {&#39;strategy&#39;: {&#39;type&#39;: &#39;str&#39;,
-   &#39;default&#39;: &#39;mean&#39;,
-   &#39;values&#39;: [&#39;mean&#39;, &#39;median&#39;, &#39;most_frequent&#39;]}},
- &#39;sklearn.preprocessing.StandardScaler#1&#39;: {&#39;with_mean&#39;: {&#39;type&#39;: &#39;bool&#39;,
-   &#39;default&#39;: True},
-  &#39;with_std&#39;: {&#39;type&#39;: &#39;bool&#39;, &#39;default&#39;: True}},
- &#39;mlprimitives.preprocessing.ClassEncoder#1&#39;: {},
- &#39;xgboost.XGBClassifier#1&#39;: {&#39;n_estimators&#39;: {&#39;type&#39;: &#39;int&#39;,
-   &#39;default&#39;: 100,
-   &#39;range&#39;: [10, 1000]},
-  &#39;max_depth&#39;: {&#39;type&#39;: &#39;int&#39;, &#39;default&#39;: 3, &#39;range&#39;: [3, 10]},
-  &#39;learning_rate&#39;: {&#39;type&#39;: &#39;float&#39;, &#39;default&#39;: 0.1, &#39;range&#39;: [0, 1]},
-  &#39;gamma&#39;: {&#39;type&#39;: &#39;float&#39;, &#39;default&#39;: 0, &#39;range&#39;: [0, 1]},
-  &#39;min_child_weight&#39;: {&#39;type&#39;: &#39;int&#39;, &#39;default&#39;: 1, &#39;range&#39;: [1, 10]}},
- &#39;mlprimitives.preprocessing.ClassDecoder#1&#39;: {}}
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err">{</span><span class="s1">&#39;mlprimitives.feature_extraction.CategoricalEncoder#1&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;max_labels&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+   <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span><span class="err">}}</span><span class="p">,</span>
+ <span class="s1">&#39;sklearn.preprocessing.Imputer#1&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;strategy&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;values&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="s1">&#39;most_frequent&#39;</span><span class="p">]</span><span class="err">}}</span><span class="p">,</span>
+ <span class="s1">&#39;sklearn.preprocessing.StandardScaler#1&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;with_mean&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="k">True</span><span class="err">}</span><span class="p">,</span>
+  <span class="s1">&#39;with_std&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="k">True</span><span class="err">}}</span><span class="p">,</span>
+ <span class="s1">&#39;mlprimitives.preprocessing.ClassEncoder#1&#39;</span><span class="p">:</span> <span class="err">{}</span><span class="p">,</span>
+ <span class="s1">&#39;xgboost.XGBClassifier#1&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+   <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]</span><span class="err">}</span><span class="p">,</span>
+  <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span><span class="err">}</span><span class="p">,</span>
+  <span class="s1">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;float&#39;</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="err">}</span><span class="p">,</span>
+  <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;float&#39;</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="err">}</span><span class="p">,</span>
+  <span class="s1">&#39;min_child_weight&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span><span class="err">}}</span><span class="p">,</span>
+ <span class="s1">&#39;mlprimitives.preprocessing.ClassDecoder#1&#39;</span><span class="p">:</span> <span class="err">{}}</span>
 </pre></div>
 </div>
 </div>
@@ -1043,20 +1043,20 @@ For this, we must pass the ID of the pipeline and the name of the dataset to the
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">piex</span><span class="o">.</span><span class="n">score_pipeline</span><span class="p">(</span><span class="n">pipeline</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="s1">&#39;185_baseball&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>(0.6921128080904511, 0.09950216269594728)
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">6921128080904511</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">09950216269594728</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">piex</span><span class="o">.</span><span class="n">score_pipeline</span><span class="p">(</span><span class="n">pipeline</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="s1">&#39;uu4_SPECT&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>(0.8897656842904123, 0.037662864373452655)
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">8897656842904123</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">037662864373452655</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Optionally, the cross validation configuration can be changed</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">piex</span><span class="o">.</span><span class="n">score_pipeline</span><span class="p">(</span><span class="n">pipeline</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="s1">&#39;uu4_SPECT&#39;</span><span class="p">,</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">43</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>(0.8869488536155202, 0.019475563687443638)
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">8869488536155202</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">019475563687443638</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1069,7 +1069,7 @@ the task/data modality for which you want to use it.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">piex</span><span class="o">.</span><span class="n">score_template</span><span class="p">(</span><span class="n">template_name</span><span class="p">,</span> <span class="s1">&#39;uu4_SPECT&#39;</span><span class="p">,</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">43</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>(0.8555346666968675, 0.028343173498423108)
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">8555346666968675</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">028343173498423108</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>You can get the default hyperparameters, and update the hyperparameters by setting values
@@ -1083,7 +1083,7 @@ are getting and the pipeline and we will add to our database.</strong></p>
 <span class="n">piex</span><span class="o">.</span><span class="n">score_template</span><span class="p">(</span><span class="n">template_name</span><span class="p">,</span> <span class="s1">&#39;uu4_SPECT&#39;</span><span class="p">,</span> <span class="n">hyperparameters</span><span class="p">,</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">43</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>(0.8754554700753094, 0.019151608028236813)
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">8754554700753094</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">019151608028236813</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="toctree-wrapper compound">
