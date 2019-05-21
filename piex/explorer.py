@@ -8,6 +8,7 @@ import os
 import pickle
 
 import boto3
+import botocore
 import pandas as pd
 from mlblocks import MLPipeline
 
@@ -230,7 +231,8 @@ class S3PipelineExplorer(PipelineExplorer):
         LOGGER.info("Downloading %s csv from S3", table_name)
         key = os.path.join('csvs', table_name + '.csv.gz')
 
-        s3 = boto3.client('s3')
+        config = botocore.config.Config(signature_version=botocore.UNSIGNED)
+        s3 = boto3.client('s3', config=config)
         obj = s3.get_object(Bucket=self.bucket, Key=key)
 
         body_bytes = io.BytesIO(obj['Body'].read())
@@ -267,9 +269,7 @@ class S3PipelineExplorer(PipelineExplorer):
         return json.load(gzip_file)
 
     def get_tests(self, **filters):
-        ddf = self._load_table('datasets')
         tdf = self._load_table('tests')
-        tdf = tdf.merge(ddf, how='left', on='dataset')
         return self._filter(tdf, filters)
 
     def get_test_results(self, **filters):
