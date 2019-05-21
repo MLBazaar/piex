@@ -1,6 +1,6 @@
 # History
 
-## 0.1.2
+## 0.2.0
 
 * Pin dependency versions to ensure reproducibility
 * Allow S3PipelineExplorer usage without AWS credentials
