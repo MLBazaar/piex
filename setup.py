@@ -91,6 +91,6 @@ setup(
     test_suite='tests',
     tests_require=tests_require,
     url='https://github.com/HDI-Project/piex',
-    version='0.1.2-dev',
+    version='0.1.2',
     zip_safe=False,
 )
