@@ -19,6 +19,7 @@ install_requires = [
     'pymongo==3.7.2',
     'scikit-learn==0.20.0',
     'scipy==1.1.0',
+    'xgboost==0.81',
 ]
 
 demo_requires = [
