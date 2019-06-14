@@ -11,6 +11,7 @@ import boto3
 import botocore
 import pandas as pd
 from mlblocks import MLPipeline
+from mit_d3m.utils import restore_dots
 
 from piex.scoring import pipeline_dataset_score
 
@@ -215,10 +216,10 @@ class MongoPipelineExplorer(PipelineExplorer):
         ]]
 
     def load_pipeline(self, pipeline_id):
-        return self.db.solutions.find_one({'_id': pipeline_id})
+        return restore_dots(self.db.solutions.find_one({'_id': pipeline_id}))
 
     def _load_template(self, template_name):
-        return self.db.pipelines.find_one({'metadata.name': template_name})
+        return restore_dots(self.db.pipelines.find_one({'metadata.name': template_name}))
 
 
 class S3PipelineExplorer(PipelineExplorer):
