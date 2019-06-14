@@ -10,8 +10,8 @@ import pickle
 import boto3
 import botocore
 import pandas as pd
-from mlblocks import MLPipeline
 from mit_d3m.utils import restore_dots
+from mlblocks import MLPipeline
 
 from piex.scoring import pipeline_dataset_score
 
