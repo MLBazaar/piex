@@ -986,23 +986,23 @@ the <code class="docutils literal notranslate"><span class="pre">get_best_templa
 <span class="n">defaults</span>
 </pre></div>
 </div>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err">{</span><span class="s1">&#39;mlprimitives.feature_extraction.CategoricalEncoder#1&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;copy&#39;</span><span class="p">:</span> <span class="k">True</span><span class="p">,</span>
-  <span class="s1">&#39;features&#39;</span><span class="p">:</span> <span class="s1">&#39;auto&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;max_labels&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="err">}</span><span class="p">,</span>
- <span class="s1">&#39;sklearn.preprocessing.Imputer#1&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;missing_values&#39;</span><span class="p">:</span> <span class="s1">&#39;NaN&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;axis&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="s1">&#39;copy&#39;</span><span class="p">:</span> <span class="k">True</span><span class="p">,</span>
-  <span class="s1">&#39;strategy&#39;</span><span class="p">:</span> <span class="s1">&#39;mean&#39;</span><span class="err">}</span><span class="p">,</span>
- <span class="s1">&#39;sklearn.preprocessing.StandardScaler#1&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;with_mean&#39;</span><span class="p">:</span> <span class="k">True</span><span class="p">,</span>
-  <span class="s1">&#39;with_std&#39;</span><span class="p">:</span> <span class="k">True</span><span class="err">}</span><span class="p">,</span>
- <span class="s1">&#39;mlprimitives.preprocessing.ClassEncoder#1&#39;</span><span class="p">:</span> <span class="err">{}</span><span class="p">,</span>
- <span class="s1">&#39;xgboost.XGBClassifier#1&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;n_jobs&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-  <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
-  <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-  <span class="s1">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">,</span>
-  <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="s1">&#39;min_child_weight&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="err">}</span><span class="p">,</span>
- <span class="s1">&#39;mlprimitives.preprocessing.ClassDecoder#1&#39;</span><span class="p">:</span> <span class="err">{}}</span>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>{&#39;mlprimitives.feature_extraction.CategoricalEncoder#1&#39;: {&#39;copy&#39;: True,
+  &#39;features&#39;: &#39;auto&#39;,
+  &#39;max_labels&#39;: 0},
+ &#39;sklearn.preprocessing.Imputer#1&#39;: {&#39;missing_values&#39;: &#39;NaN&#39;,
+  &#39;axis&#39;: 0,
+  &#39;copy&#39;: True,
+  &#39;strategy&#39;: &#39;mean&#39;},
+ &#39;sklearn.preprocessing.StandardScaler#1&#39;: {&#39;with_mean&#39;: True,
+  &#39;with_std&#39;: True},
+ &#39;mlprimitives.preprocessing.ClassEncoder#1&#39;: {},
+ &#39;xgboost.XGBClassifier#1&#39;: {&#39;n_jobs&#39;: -1,
+  &#39;n_estimators&#39;: 100,
+  &#39;max_depth&#39;: 3,
+  &#39;learning_rate&#39;: 0.1,
+  &#39;gamma&#39;: 0,
+  &#39;min_child_weight&#39;: 1},
+ &#39;mlprimitives.preprocessing.ClassDecoder#1&#39;: {}}
 </pre></div>
 </div>
 <p>Or obtaining the corresponding tunable ranges, ready to be used with a tuner:</p>
@@ -1010,24 +1010,24 @@ the <code class="docutils literal notranslate"><span class="pre">get_best_templa
 <span class="n">tunable</span>
 </pre></div>
 </div>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err">{</span><span class="s1">&#39;mlprimitives.feature_extraction.CategoricalEncoder#1&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;max_labels&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-   <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span><span class="err">}}</span><span class="p">,</span>
- <span class="s1">&#39;sklearn.preprocessing.Imputer#1&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;strategy&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;values&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="s1">&#39;most_frequent&#39;</span><span class="p">]</span><span class="err">}}</span><span class="p">,</span>
- <span class="s1">&#39;sklearn.preprocessing.StandardScaler#1&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;with_mean&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="k">True</span><span class="err">}</span><span class="p">,</span>
-  <span class="s1">&#39;with_std&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="k">True</span><span class="err">}}</span><span class="p">,</span>
- <span class="s1">&#39;mlprimitives.preprocessing.ClassEncoder#1&#39;</span><span class="p">:</span> <span class="err">{}</span><span class="p">,</span>
- <span class="s1">&#39;xgboost.XGBClassifier#1&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
-   <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]</span><span class="err">}</span><span class="p">,</span>
-  <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span><span class="err">}</span><span class="p">,</span>
-  <span class="s1">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;float&#39;</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="err">}</span><span class="p">,</span>
-  <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;float&#39;</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="err">}</span><span class="p">,</span>
-  <span class="s1">&#39;min_child_weight&#39;</span><span class="p">:</span> <span class="err">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span><span class="err">}}</span><span class="p">,</span>
- <span class="s1">&#39;mlprimitives.preprocessing.ClassDecoder#1&#39;</span><span class="p">:</span> <span class="err">{}}</span>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>{&#39;mlprimitives.feature_extraction.CategoricalEncoder#1&#39;: {&#39;max_labels&#39;: {&#39;type&#39;: &#39;int&#39;,
+   &#39;default&#39;: 0,
+   &#39;range&#39;: [0, 100]}},
+ &#39;sklearn.preprocessing.Imputer#1&#39;: {&#39;strategy&#39;: {&#39;type&#39;: &#39;str&#39;,
+   &#39;default&#39;: &#39;mean&#39;,
+   &#39;values&#39;: [&#39;mean&#39;, &#39;median&#39;, &#39;most_frequent&#39;]}},
+ &#39;sklearn.preprocessing.StandardScaler#1&#39;: {&#39;with_mean&#39;: {&#39;type&#39;: &#39;bool&#39;,
+   &#39;default&#39;: True},
+  &#39;with_std&#39;: {&#39;type&#39;: &#39;bool&#39;, &#39;default&#39;: True}},
+ &#39;mlprimitives.preprocessing.ClassEncoder#1&#39;: {},
+ &#39;xgboost.XGBClassifier#1&#39;: {&#39;n_estimators&#39;: {&#39;type&#39;: &#39;int&#39;,
+   &#39;default&#39;: 100,
+   &#39;range&#39;: [10, 1000]},
+  &#39;max_depth&#39;: {&#39;type&#39;: &#39;int&#39;, &#39;default&#39;: 3, &#39;range&#39;: [3, 10]},
+  &#39;learning_rate&#39;: {&#39;type&#39;: &#39;float&#39;, &#39;default&#39;: 0.1, &#39;range&#39;: [0, 1]},
+  &#39;gamma&#39;: {&#39;type&#39;: &#39;float&#39;, &#39;default&#39;: 0, &#39;range&#39;: [0, 1]},
+  &#39;min_child_weight&#39;: {&#39;type&#39;: &#39;int&#39;, &#39;default&#39;: 1, &#39;range&#39;: [1, 10]}},
+ &#39;mlprimitives.preprocessing.ClassDecoder#1&#39;: {}}
 </pre></div>
 </div>
 </div>

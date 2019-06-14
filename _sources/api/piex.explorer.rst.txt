@@ -2,6 +2,6 @@ piex.explorer module
 ====================
 
 .. automodule:: piex.explorer
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:

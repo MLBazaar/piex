@@ -2,9 +2,9 @@ piex package
 ============
 
 .. automodule:: piex
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Submodules
 ----------
@@ -13,4 +13,3 @@ Submodules
 
    piex.explorer
    piex.scoring
-
