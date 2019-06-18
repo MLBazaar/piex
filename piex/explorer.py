@@ -51,10 +51,6 @@ class PipelineExplorer:
         """Get a pandas DataFrame with information about the scored pipelines."""
         raise NotImplementedError
 
-    def get_best_pipeline(self, dataset):
-        """Get information about the best pipeline ever found for the given dataset."""
-        raise NotImplementedError
-
     def get_templates(self, **filters):
         """Get a pandas DataFrame with information about the available templates."""
         raise NotImplementedError
@@ -78,19 +74,23 @@ class PipelineExplorer:
         mlpipeline_dict['metadata'] = template['metadata']
         return mlpipeline_dict
 
-    def load_best_pipeline(self, dataset):
+    def get_best_pipeline(self, dataset, **filters):
+        """Get information about the best pipeline ever found for the given dataset."""
+        raise NotImplementedError
+
+    def load_best_pipeline(self, dataset, **filters):
         """Get the dict representation of the best pipeline ever found for this dataset."""
-        pipeline = self.get_best_pipeline(dataset)
+        pipeline = self.get_best_pipeline(dataset, **filters)
         return self.load_pipeline(pipeline.id)
 
-    def get_best_template(self, dataset):
+    def get_best_template(self, dataset, **filters):
         """Get the name of the template that got the best score for this dataset."""
-        pipeline = self.get_best_pipeline(dataset)
+        pipeline = self.get_best_pipeline(dataset, **filters)
         return pipeline['name']
 
-    def load_best_template(self, dataset):
+    def load_best_template(self, dataset, **filters):
         """Get the dict representation of the best template ever found for this dataset."""
-        template_name = self.get_best_template(dataset)
+        template_name = self.get_best_template(dataset, **filters)
         return self.load_template(template_name)
 
     def get_default_hyperparameters(self, template_name):
@@ -177,14 +177,15 @@ class MongoPipelineExplorer(PipelineExplorer):
 
         return document['dataset_id']
 
-    def get_best_pipeline(self, dataset):
+    def get_best_pipeline(self, dataset, **filters):
         query = {
             'dataset': {
                 '$in': [
                     dataset,
                     self.get_dataset_id(dataset)
                 ]
-            }
+            },
+            **filters
         }
         solutions = self.db.solutions.find(query)
         best = list(solutions.sort('rank', 1).limit(1))
@@ -200,7 +201,7 @@ class MongoPipelineExplorer(PipelineExplorer):
             'primitives',
         ]
 
-        for template in self.db.pipelines.find({}, project):
+        for template in self.db.pipelines.find(filters, project):
             template.update(template.pop('metadata'))
             template['id'] = str(template.pop('_id'))
             templates.append(template)
@@ -298,15 +299,18 @@ class S3PipelineExplorer(PipelineExplorer):
         if not dataset.empty:
             return dataset.iloc[0].dataset_id
 
-    def get_best_pipeline(self, dataset):
-        sdf = self._load_table('pipelines')
-        dsdf = sdf[sdf.dataset == dataset]
-        if dsdf.empty:
-            dataset = self.get_dataset_id(dataset)
+    def get_best_pipeline(self, dataset, **filters):
+        df = self._load_table('pipelines')
+        filters = {'dataset': dataset, **filters}
+        dsdf = self._filter(df, filters)
 
-        dsdf = sdf[sdf.dataset == dataset]
+        # make a second attempt if ``dataset`` not specified as expected
+        if dsdf.empty:
+            filters['dataset'] = self.get_dataset_id(dataset)
+            dsdf = self._filter(df, filters)
+
         if not dsdf.empty:
-            return dsdf.rename(columns={'_id': 'id'}).sort_values('rank').iloc[0]
+            return dsdf.rename(columns={'_id': 'id'}).nsmallest(1, 'rank')
 
     def load_pipeline(self, pipeline_id):
         return self._get_json('pipelines', pipeline_id)
