@@ -32,6 +32,14 @@ class PipelineExplorer:
         self.dfs = dict()
 
     def _filter(self, df, filters):
+        """Filter table df on equality filters
+
+        For example, if filters := ``{'data_modality': 'graph'}``, then only rows in the table that have the data_modality column equal to 'graph' will be returned.
+
+        Args:
+            df (DataFrame)
+                filters (dict): mapping of column names -> values to check for equality
+        """
         df = df.loc[(df[list(filters)] == pd.Series(filters)).all(axis=1)]
         return df.reset_index(drop=True).copy()
 
