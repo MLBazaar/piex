@@ -6,6 +6,7 @@ import json
 import logging
 import os
 import pickle
+from collections.abc import Mapping
 
 import boto3
 import botocore
@@ -249,6 +250,14 @@ class S3PipelineExplorer(PipelineExplorer):
         obj = self.client.get_object(Bucket=self.bucket, Key=key)
         body_bytes = io.BytesIO(obj['Body'].read())
         return gzip.GzipFile(fileobj=body_bytes, mode='rb')
+
+    def _filter(self, df, filters):
+        # simply check that filters are not mongo queries
+        for v in filters.values():
+            if isinstance(v, Mapping):
+                raise ValueError(
+                    'Must pass equality filters only to S3PipelineExplorer')
+        return super()._filter(df, filters)
 
     def _get_table(self, table_name):
         LOGGER.info("Downloading %s csv from S3", table_name)
