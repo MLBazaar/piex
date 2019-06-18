@@ -229,18 +229,24 @@ class S3PipelineExplorer(PipelineExplorer):
         super().__init__(*args, **kwargs)
         self.bucket = bucket
 
+    @property
+    def client(self):
+        if self.__dict__.get('_client') is None:
+            config = botocore.config.Config(
+                signature_version=botocore.UNSIGNED)
+            self._client = boto3.client('s3', config=config)
+        return self._client
+
+    def _get_s3_object(self, key):
+        obj = self.client.get_object(Bucket=self.bucket, Key=key)
+        body_bytes = io.BytesIO(obj['Body'].read())
+        return gzip.GzipFile(fileobj=body_bytes, mode='rb')
+
     def _get_table(self, table_name):
         LOGGER.info("Downloading %s csv from S3", table_name)
         key = os.path.join('csvs', table_name + '.csv.gz')
-
-        config = botocore.config.Config(signature_version=botocore.UNSIGNED)
-        s3 = boto3.client('s3', config=config)
-        obj = s3.get_object(Bucket=self.bucket, Key=key)
-
-        body_bytes = io.BytesIO(obj['Body'].read())
-        gzip_file = gzip.GzipFile(fileobj=body_bytes, mode='rb')
-
-        return pd.read_csv(gzip_file)
+        obj = self._get_s3_object(key)
+        return pd.read_csv(obj)
 
     def _load_table(self, table_name):
         df = self.dfs.get(table_name)
@@ -263,12 +269,8 @@ class S3PipelineExplorer(PipelineExplorer):
 
     def _get_json(self, folder, pipeline_id):
         key = os.path.join(folder, pipeline_id + '.json.gz')
-        s3 = boto3.client('s3')
-        obj = s3.get_object(Bucket=self.bucket, Key=key)
-
-        body_bytes = io.BytesIO(obj['Body'].read())
-        gzip_file = gzip.GzipFile(fileobj=body_bytes, mode='rb')
-        return json.load(gzip_file)
+        obj = self._get_s3_object(key)
+        return json.load(obj)
 
     def get_tests(self, **filters):
         tdf = self._load_table('tests')
