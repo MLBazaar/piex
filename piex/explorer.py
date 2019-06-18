@@ -6,7 +6,6 @@ import json
 import logging
 import os
 import pickle
-from collections.abc import Mapping
 
 import boto3
 import botocore
