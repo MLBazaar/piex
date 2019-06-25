@@ -252,6 +252,17 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">dfs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">filters</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Filter table df on equality filters</span>
+
+<span class="sd">        For example, if filters := ``{&#39;data_modality&#39;: &#39;graph&#39;}``, then only</span>
+<span class="sd">        rows in the table that have the data_modality column equal to &#39;graph&#39;</span>
+<span class="sd">        will be returned.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            df (DataFrame)</span>
+<span class="sd">                filters (dict): mapping of column names -&gt; values to check for</span>
+<span class="sd">                    equality</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">filters</span><span class="p">)]</span> <span class="o">==</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">filters</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
         <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
@@ -269,10 +280,6 @@
 
 <div class="viewcode-block" id="PipelineExplorer.get_pipelines"><a class="viewcode-back" href="../../api/piex.explorer.html#piex.explorer.PipelineExplorer.get_pipelines">[docs]</a>    <span class="k">def</span> <span class="nf">get_pipelines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">filters</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get a pandas DataFrame with information about the scored pipelines.&quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
-
-<div class="viewcode-block" id="PipelineExplorer.get_best_pipeline"><a class="viewcode-back" href="../../api/piex.explorer.html#piex.explorer.PipelineExplorer.get_best_pipeline">[docs]</a>    <span class="k">def</span> <span class="nf">get_best_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get information about the best pipeline ever found for the given dataset.&quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
 
 <div class="viewcode-block" id="PipelineExplorer.get_templates"><a class="viewcode-back" href="../../api/piex.explorer.html#piex.explorer.PipelineExplorer.get_templates">[docs]</a>    <span class="k">def</span> <span class="nf">get_templates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">filters</span><span class="p">):</span>
@@ -298,19 +305,23 @@
         <span class="n">mlpipeline_dict</span><span class="p">[</span><span class="s1">&#39;metadata&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">template</span><span class="p">[</span><span class="s1">&#39;metadata&#39;</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">mlpipeline_dict</span></div>
 
-<div class="viewcode-block" id="PipelineExplorer.load_best_pipeline"><a class="viewcode-back" href="../../api/piex.explorer.html#piex.explorer.PipelineExplorer.load_best_pipeline">[docs]</a>    <span class="k">def</span> <span class="nf">load_best_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
+<div class="viewcode-block" id="PipelineExplorer.get_best_pipeline"><a class="viewcode-back" href="../../api/piex.explorer.html#piex.explorer.PipelineExplorer.get_best_pipeline">[docs]</a>    <span class="k">def</span> <span class="nf">get_best_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="o">**</span><span class="n">filters</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get information about the best pipeline ever found for the given dataset.&quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="PipelineExplorer.load_best_pipeline"><a class="viewcode-back" href="../../api/piex.explorer.html#piex.explorer.PipelineExplorer.load_best_pipeline">[docs]</a>    <span class="k">def</span> <span class="nf">load_best_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="o">**</span><span class="n">filters</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get the dict representation of the best pipeline ever found for this dataset.&quot;&quot;&quot;</span>
-        <span class="n">pipeline</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_best_pipeline</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+        <span class="n">pipeline</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_best_pipeline</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="o">**</span><span class="n">filters</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_pipeline</span><span class="p">(</span><span class="n">pipeline</span><span class="o">.</span><span class="n">id</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="PipelineExplorer.get_best_template"><a class="viewcode-back" href="../../api/piex.explorer.html#piex.explorer.PipelineExplorer.get_best_template">[docs]</a>    <span class="k">def</span> <span class="nf">get_best_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
+<div class="viewcode-block" id="PipelineExplorer.get_best_template"><a class="viewcode-back" href="../../api/piex.explorer.html#piex.explorer.PipelineExplorer.get_best_template">[docs]</a>    <span class="k">def</span> <span class="nf">get_best_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="o">**</span><span class="n">filters</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get the name of the template that got the best score for this dataset.&quot;&quot;&quot;</span>
-        <span class="n">pipeline</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_best_pipeline</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+        <span class="n">pipeline</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_best_pipeline</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="o">**</span><span class="n">filters</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">pipeline</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="PipelineExplorer.load_best_template"><a class="viewcode-back" href="../../api/piex.explorer.html#piex.explorer.PipelineExplorer.load_best_template">[docs]</a>    <span class="k">def</span> <span class="nf">load_best_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
+<div class="viewcode-block" id="PipelineExplorer.load_best_template"><a class="viewcode-back" href="../../api/piex.explorer.html#piex.explorer.PipelineExplorer.load_best_template">[docs]</a>    <span class="k">def</span> <span class="nf">load_best_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="o">**</span><span class="n">filters</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get the dict representation of the best template ever found for this dataset.&quot;&quot;&quot;</span>
-        <span class="n">template_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_best_template</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+        <span class="n">template_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_best_template</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="o">**</span><span class="n">filters</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_template</span><span class="p">(</span><span class="n">template_name</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="PipelineExplorer.get_default_hyperparameters"><a class="viewcode-back" href="../../api/piex.explorer.html#piex.explorer.PipelineExplorer.get_default_hyperparameters">[docs]</a>    <span class="k">def</span> <span class="nf">get_default_hyperparameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template_name</span><span class="p">):</span>
@@ -397,14 +408,15 @@
 
         <span class="k">return</span> <span class="n">document</span><span class="p">[</span><span class="s1">&#39;dataset_id&#39;</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="MongoPipelineExplorer.get_best_pipeline"><a class="viewcode-back" href="../../api/piex.explorer.html#piex.explorer.MongoPipelineExplorer.get_best_pipeline">[docs]</a>    <span class="k">def</span> <span class="nf">get_best_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
+<div class="viewcode-block" id="MongoPipelineExplorer.get_best_pipeline"><a class="viewcode-back" href="../../api/piex.explorer.html#piex.explorer.MongoPipelineExplorer.get_best_pipeline">[docs]</a>    <span class="k">def</span> <span class="nf">get_best_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="o">**</span><span class="n">filters</span><span class="p">):</span>
         <span class="n">query</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;dataset&#39;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s1">&#39;$in&#39;</span><span class="p">:</span> <span class="p">[</span>
                     <span class="n">dataset</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">get_dataset_id</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
                 <span class="p">]</span>
-            <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="o">**</span><span class="n">filters</span>
         <span class="p">}</span>
         <span class="n">solutions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">solutions</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
         <span class="n">best</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">solutions</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">&#39;rank&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
@@ -420,7 +432,7 @@
             <span class="s1">&#39;primitives&#39;</span><span class="p">,</span>
         <span class="p">]</span>
 
-        <span class="k">for</span> <span class="n">template</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">find</span><span class="p">({},</span> <span class="n">project</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">template</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">filters</span><span class="p">,</span> <span class="n">project</span><span class="p">):</span>
             <span class="n">template</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">template</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;metadata&#39;</span><span class="p">))</span>
             <span class="n">template</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">template</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_id&#39;</span><span class="p">))</span>
             <span class="n">templates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
@@ -448,18 +460,24 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bucket</span> <span class="o">=</span> <span class="n">bucket</span>
 
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">client</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;_client&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="n">botocore</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">Config</span><span class="p">(</span>
+                <span class="n">signature_version</span><span class="o">=</span><span class="n">botocore</span><span class="o">.</span><span class="n">UNSIGNED</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span>
+
+    <span class="k">def</span> <span class="nf">_get_s3_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bucket</span><span class="p">,</span> <span class="n">Key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">body_bytes</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;Body&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">gzip</span><span class="o">.</span><span class="n">GzipFile</span><span class="p">(</span><span class="n">fileobj</span><span class="o">=</span><span class="n">body_bytes</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">_get_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">):</span>
         <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Downloading </span><span class="si">%s</span><span class="s2"> csv from S3&quot;</span><span class="p">,</span> <span class="n">table_name</span><span class="p">)</span>
         <span class="n">key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;csvs&#39;</span><span class="p">,</span> <span class="n">table_name</span> <span class="o">+</span> <span class="s1">&#39;.csv.gz&#39;</span><span class="p">)</span>
-
-        <span class="n">config</span> <span class="o">=</span> <span class="n">botocore</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">Config</span><span class="p">(</span><span class="n">signature_version</span><span class="o">=</span><span class="n">botocore</span><span class="o">.</span><span class="n">UNSIGNED</span><span class="p">)</span>
-        <span class="n">s3</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
-        <span class="n">obj</span> <span class="o">=</span> <span class="n">s3</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bucket</span><span class="p">,</span> <span class="n">Key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
-
-        <span class="n">body_bytes</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;Body&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
-        <span class="n">gzip_file</span> <span class="o">=</span> <span class="n">gzip</span><span class="o">.</span><span class="n">GzipFile</span><span class="p">(</span><span class="n">fileobj</span><span class="o">=</span><span class="n">body_bytes</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">gzip_file</span><span class="p">)</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_s3_object</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_load_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">):</span>
         <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dfs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">table_name</span><span class="p">)</span>
@@ -482,12 +500,8 @@
 
     <span class="k">def</span> <span class="nf">_get_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">folder</span><span class="p">,</span> <span class="n">pipeline_id</span><span class="p">):</span>
         <span class="n">key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">pipeline_id</span> <span class="o">+</span> <span class="s1">&#39;.json.gz&#39;</span><span class="p">)</span>
-        <span class="n">s3</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">)</span>
-        <span class="n">obj</span> <span class="o">=</span> <span class="n">s3</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bucket</span><span class="p">,</span> <span class="n">Key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
-
-        <span class="n">body_bytes</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;Body&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
-        <span class="n">gzip_file</span> <span class="o">=</span> <span class="n">gzip</span><span class="o">.</span><span class="n">GzipFile</span><span class="p">(</span><span class="n">fileobj</span><span class="o">=</span><span class="n">body_bytes</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">gzip_file</span><span class="p">)</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_s3_object</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
 
 <div class="viewcode-block" id="S3PipelineExplorer.get_tests"><a class="viewcode-back" href="../../api/piex.explorer.html#piex.explorer.S3PipelineExplorer.get_tests">[docs]</a>    <span class="k">def</span> <span class="nf">get_tests</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">filters</span><span class="p">):</span>
         <span class="n">tdf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_table</span><span class="p">(</span><span class="s1">&#39;tests&#39;</span><span class="p">)</span>
@@ -518,15 +532,18 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">dataset</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">dataset</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dataset_id</span></div>
 
-<div class="viewcode-block" id="S3PipelineExplorer.get_best_pipeline"><a class="viewcode-back" href="../../api/piex.explorer.html#piex.explorer.S3PipelineExplorer.get_best_pipeline">[docs]</a>    <span class="k">def</span> <span class="nf">get_best_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
-        <span class="n">sdf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_table</span><span class="p">(</span><span class="s1">&#39;pipelines&#39;</span><span class="p">)</span>
-        <span class="n">dsdf</span> <span class="o">=</span> <span class="n">sdf</span><span class="p">[</span><span class="n">sdf</span><span class="o">.</span><span class="n">dataset</span> <span class="o">==</span> <span class="n">dataset</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">dsdf</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
-            <span class="n">dataset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dataset_id</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+<div class="viewcode-block" id="S3PipelineExplorer.get_best_pipeline"><a class="viewcode-back" href="../../api/piex.explorer.html#piex.explorer.S3PipelineExplorer.get_best_pipeline">[docs]</a>    <span class="k">def</span> <span class="nf">get_best_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="o">**</span><span class="n">filters</span><span class="p">):</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_table</span><span class="p">(</span><span class="s1">&#39;pipelines&#39;</span><span class="p">)</span>
+        <span class="n">filters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;dataset&#39;</span><span class="p">:</span> <span class="n">dataset</span><span class="p">,</span> <span class="o">**</span><span class="n">filters</span><span class="p">}</span>
+        <span class="n">dsdf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filter</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">filters</span><span class="p">)</span>
 
-        <span class="n">dsdf</span> <span class="o">=</span> <span class="n">sdf</span><span class="p">[</span><span class="n">sdf</span><span class="o">.</span><span class="n">dataset</span> <span class="o">==</span> <span class="n">dataset</span><span class="p">]</span>
+        <span class="c1"># make a second attempt if ``dataset`` not specified as expected</span>
+        <span class="k">if</span> <span class="n">dsdf</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="n">filters</span><span class="p">[</span><span class="s1">&#39;dataset&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dataset_id</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+            <span class="n">dsdf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filter</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">filters</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="ow">not</span> <span class="n">dsdf</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">dsdf</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;_id&#39;</span><span class="p">:</span> <span class="s1">&#39;id&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;rank&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+            <span class="k">return</span> <span class="n">dsdf</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;_id&#39;</span><span class="p">:</span> <span class="s1">&#39;id&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">nsmallest</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;rank&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="S3PipelineExplorer.load_pipeline"><a class="viewcode-back" href="../../api/piex.explorer.html#piex.explorer.S3PipelineExplorer.load_pipeline">[docs]</a>    <span class="k">def</span> <span class="nf">load_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pipeline_id</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_json</span><span class="p">(</span><span class="s1">&#39;pipelines&#39;</span><span class="p">,</span> <span class="n">pipeline_id</span><span class="p">)</span></div>

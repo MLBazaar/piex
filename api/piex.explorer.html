@@ -233,7 +233,7 @@
 <dd><p>Bases: <a class="reference internal" href="#piex.explorer.PipelineExplorer" title="piex.explorer.PipelineExplorer"><code class="xref py py-class docutils literal notranslate"><span class="pre">piex.explorer.PipelineExplorer</span></code></a></p>
 <dl class="method">
 <dt id="piex.explorer.MongoPipelineExplorer.get_best_pipeline">
-<code class="sig-name descname">get_best_pipeline</code><span class="sig-paren">(</span><em class="sig-param">dataset</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/piex/explorer.html#MongoPipelineExplorer.get_best_pipeline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piex.explorer.MongoPipelineExplorer.get_best_pipeline" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_best_pipeline</code><span class="sig-paren">(</span><em class="sig-param">dataset</em>, <em class="sig-param">**filters</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/piex/explorer.html#MongoPipelineExplorer.get_best_pipeline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piex.explorer.MongoPipelineExplorer.get_best_pipeline" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get information about the best pipeline ever found for the given dataset.</p>
 </dd></dl>
 
@@ -292,13 +292,13 @@
 
 <dl class="method">
 <dt id="piex.explorer.PipelineExplorer.get_best_pipeline">
-<code class="sig-name descname">get_best_pipeline</code><span class="sig-paren">(</span><em class="sig-param">dataset</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/piex/explorer.html#PipelineExplorer.get_best_pipeline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piex.explorer.PipelineExplorer.get_best_pipeline" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_best_pipeline</code><span class="sig-paren">(</span><em class="sig-param">dataset</em>, <em class="sig-param">**filters</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/piex/explorer.html#PipelineExplorer.get_best_pipeline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piex.explorer.PipelineExplorer.get_best_pipeline" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get information about the best pipeline ever found for the given dataset.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="piex.explorer.PipelineExplorer.get_best_template">
-<code class="sig-name descname">get_best_template</code><span class="sig-paren">(</span><em class="sig-param">dataset</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/piex/explorer.html#PipelineExplorer.get_best_template"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piex.explorer.PipelineExplorer.get_best_template" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_best_template</code><span class="sig-paren">(</span><em class="sig-param">dataset</em>, <em class="sig-param">**filters</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/piex/explorer.html#PipelineExplorer.get_best_template"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piex.explorer.PipelineExplorer.get_best_template" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the name of the template that got the best score for this dataset.</p>
 </dd></dl>
 
@@ -352,13 +352,13 @@
 
 <dl class="method">
 <dt id="piex.explorer.PipelineExplorer.load_best_pipeline">
-<code class="sig-name descname">load_best_pipeline</code><span class="sig-paren">(</span><em class="sig-param">dataset</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/piex/explorer.html#PipelineExplorer.load_best_pipeline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piex.explorer.PipelineExplorer.load_best_pipeline" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">load_best_pipeline</code><span class="sig-paren">(</span><em class="sig-param">dataset</em>, <em class="sig-param">**filters</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/piex/explorer.html#PipelineExplorer.load_best_pipeline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piex.explorer.PipelineExplorer.load_best_pipeline" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the dict representation of the best pipeline ever found for this dataset.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="piex.explorer.PipelineExplorer.load_best_template">
-<code class="sig-name descname">load_best_template</code><span class="sig-paren">(</span><em class="sig-param">dataset</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/piex/explorer.html#PipelineExplorer.load_best_template"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piex.explorer.PipelineExplorer.load_best_template" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">load_best_template</code><span class="sig-paren">(</span><em class="sig-param">dataset</em>, <em class="sig-param">**filters</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/piex/explorer.html#PipelineExplorer.load_best_template"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piex.explorer.PipelineExplorer.load_best_template" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the dict representation of the best template ever found for this dataset.</p>
 </dd></dl>
 
@@ -393,8 +393,13 @@
 <em class="property">class </em><code class="sig-prename descclassname">piex.explorer.</code><code class="sig-name descname">S3PipelineExplorer</code><span class="sig-paren">(</span><em class="sig-param">bucket</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/piex/explorer.html#S3PipelineExplorer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piex.explorer.S3PipelineExplorer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#piex.explorer.PipelineExplorer" title="piex.explorer.PipelineExplorer"><code class="xref py py-class docutils literal notranslate"><span class="pre">piex.explorer.PipelineExplorer</span></code></a></p>
 <dl class="method">
+<dt id="piex.explorer.S3PipelineExplorer.client">
+<em class="property">property </em><code class="sig-name descname">client</code><a class="headerlink" href="#piex.explorer.S3PipelineExplorer.client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="piex.explorer.S3PipelineExplorer.get_best_pipeline">
-<code class="sig-name descname">get_best_pipeline</code><span class="sig-paren">(</span><em class="sig-param">dataset</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/piex/explorer.html#S3PipelineExplorer.get_best_pipeline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piex.explorer.S3PipelineExplorer.get_best_pipeline" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_best_pipeline</code><span class="sig-paren">(</span><em class="sig-param">dataset</em>, <em class="sig-param">**filters</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/piex/explorer.html#S3PipelineExplorer.get_best_pipeline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piex.explorer.S3PipelineExplorer.get_best_pipeline" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get information about the best pipeline ever found for the given dataset.</p>
 </dd></dl>
 
