@@ -32,6 +32,17 @@ class PipelineExplorer:
         self.dfs = dict()
 
     def _filter(self, df, filters):
+        """Filter table df on equality filters
+
+        For example, if filters := ``{'data_modality': 'graph'}``, then only
+        rows in the table that have the data_modality column equal to 'graph'
+        will be returned.
+
+        Args:
+            df (DataFrame)
+                filters (dict): mapping of column names -> values to check for
+                    equality
+        """
         df = df.loc[(df[list(filters)] == pd.Series(filters)).all(axis=1)]
         return df.reset_index(drop=True).copy()
 
@@ -49,10 +60,6 @@ class PipelineExplorer:
 
     def get_pipelines(self, **filters):
         """Get a pandas DataFrame with information about the scored pipelines."""
-        raise NotImplementedError
-
-    def get_best_pipeline(self, dataset):
-        """Get information about the best pipeline ever found for the given dataset."""
         raise NotImplementedError
 
     def get_templates(self, **filters):
@@ -78,19 +85,23 @@ class PipelineExplorer:
         mlpipeline_dict['metadata'] = template['metadata']
         return mlpipeline_dict
 
-    def load_best_pipeline(self, dataset):
+    def get_best_pipeline(self, dataset, **filters):
+        """Get information about the best pipeline ever found for the given dataset."""
+        raise NotImplementedError
+
+    def load_best_pipeline(self, dataset, **filters):
         """Get the dict representation of the best pipeline ever found for this dataset."""
-        pipeline = self.get_best_pipeline(dataset)
+        pipeline = self.get_best_pipeline(dataset, **filters)
         return self.load_pipeline(pipeline.id)
 
-    def get_best_template(self, dataset):
+    def get_best_template(self, dataset, **filters):
         """Get the name of the template that got the best score for this dataset."""
-        pipeline = self.get_best_pipeline(dataset)
+        pipeline = self.get_best_pipeline(dataset, **filters)
         return pipeline['name']
 
-    def load_best_template(self, dataset):
+    def load_best_template(self, dataset, **filters):
         """Get the dict representation of the best template ever found for this dataset."""
-        template_name = self.get_best_template(dataset)
+        template_name = self.get_best_template(dataset, **filters)
         return self.load_template(template_name)
 
     def get_default_hyperparameters(self, template_name):
@@ -177,14 +188,15 @@ class MongoPipelineExplorer(PipelineExplorer):
 
         return document['dataset_id']
 
-    def get_best_pipeline(self, dataset):
+    def get_best_pipeline(self, dataset, **filters):
         query = {
             'dataset': {
                 '$in': [
                     dataset,
                     self.get_dataset_id(dataset)
                 ]
-            }
+            },
+            **filters
         }
         solutions = self.db.solutions.find(query)
         best = list(solutions.sort('rank', 1).limit(1))
@@ -200,7 +212,7 @@ class MongoPipelineExplorer(PipelineExplorer):
             'primitives',
         ]
 
-        for template in self.db.pipelines.find({}, project):
+        for template in self.db.pipelines.find(filters, project):
             template.update(template.pop('metadata'))
             template['id'] = str(template.pop('_id'))
             templates.append(template)
@@ -228,18 +240,24 @@ class S3PipelineExplorer(PipelineExplorer):
         super().__init__(*args, **kwargs)
         self.bucket = bucket
 
+    @property
+    def client(self):
+        if self.__dict__.get('_client') is None:
+            config = botocore.config.Config(
+                signature_version=botocore.UNSIGNED)
+            self._client = boto3.client('s3', config=config)
+        return self._client
+
+    def _get_s3_object(self, key):
+        obj = self.client.get_object(Bucket=self.bucket, Key=key)
+        body_bytes = io.BytesIO(obj['Body'].read())
+        return gzip.GzipFile(fileobj=body_bytes, mode='rb')
+
     def _get_table(self, table_name):
         LOGGER.info("Downloading %s csv from S3", table_name)
         key = os.path.join('csvs', table_name + '.csv.gz')
-
-        config = botocore.config.Config(signature_version=botocore.UNSIGNED)
-        s3 = boto3.client('s3', config=config)
-        obj = s3.get_object(Bucket=self.bucket, Key=key)
-
-        body_bytes = io.BytesIO(obj['Body'].read())
-        gzip_file = gzip.GzipFile(fileobj=body_bytes, mode='rb')
-
-        return pd.read_csv(gzip_file)
+        obj = self._get_s3_object(key)
+        return pd.read_csv(obj)
 
     def _load_table(self, table_name):
         df = self.dfs.get(table_name)
@@ -262,12 +280,8 @@ class S3PipelineExplorer(PipelineExplorer):
 
     def _get_json(self, folder, pipeline_id):
         key = os.path.join(folder, pipeline_id + '.json.gz')
-        s3 = boto3.client('s3')
-        obj = s3.get_object(Bucket=self.bucket, Key=key)
-
-        body_bytes = io.BytesIO(obj['Body'].read())
-        gzip_file = gzip.GzipFile(fileobj=body_bytes, mode='rb')
-        return json.load(gzip_file)
+        obj = self._get_s3_object(key)
+        return json.load(obj)
 
     def get_tests(self, **filters):
         tdf = self._load_table('tests')
@@ -298,15 +312,18 @@ class S3PipelineExplorer(PipelineExplorer):
         if not dataset.empty:
             return dataset.iloc[0].dataset_id
 
-    def get_best_pipeline(self, dataset):
-        sdf = self._load_table('pipelines')
-        dsdf = sdf[sdf.dataset == dataset]
-        if dsdf.empty:
-            dataset = self.get_dataset_id(dataset)
+    def get_best_pipeline(self, dataset, **filters):
+        df = self._load_table('pipelines')
+        filters = {'dataset': dataset, **filters}
+        dsdf = self._filter(df, filters)
 
-        dsdf = sdf[sdf.dataset == dataset]
+        # make a second attempt if ``dataset`` not specified as expected
+        if dsdf.empty:
+            filters['dataset'] = self.get_dataset_id(dataset)
+            dsdf = self._filter(df, filters)
+
         if not dsdf.empty:
-            return dsdf.rename(columns={'_id': 'id'}).sort_values('rank').iloc[0]
+            return dsdf.rename(columns={'_id': 'id'}).nsmallest(1, 'rank')
 
     def load_pipeline(self, pipeline_id):
         return self._get_json('pipelines', pipeline_id)
