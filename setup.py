@@ -11,7 +11,7 @@ with open('HISTORY.md') as history_file:
 
 install_requires = [
     'boto3==1.9.27',
-    'numpy==1.15.2',
+    'numpy==1.22.0',
     'mit-d3m==0.1.1',
     'mlblocks==0.2.3',
     'mlprimitives==0.1.3',
