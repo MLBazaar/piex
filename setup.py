@@ -18,7 +18,7 @@ install_requires = [
     'pandas==0.23.4',
     'pymongo==3.7.2',
     'scikit-learn==0.20.0',
-    'scipy==1.1.0',
+    'scipy==1.10.0',
     'xgboost==0.81',
 ]
 
